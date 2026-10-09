@@ -1,0 +1,225 @@
+{
+  "title": "What Is Natural Language Processing (NLP)? Explained Simply",
+  "scenes": [
+    {
+      "chapter": "Hook",
+      "narration": "When you type good restaurants near me into your phone, how does a machine that only understands numbers know what you mean? The field that makes this possible is called natural language processing, or NLP. By the end of this video, you will know how a computer turns your words into something it can work with.",
+      "visual": {
+        "type": "title",
+        "title": "What is NLP?",
+        "subtitle": "How computers work with human language"
+      }
+    },
+    {
+      "chapter": "The translator analogy",
+      "narration": "Imagine you receive a letter in a language you do not know. You hire a translator who breaks the letter into small pieces, looks each piece up in a dictionary, and then works out what the whole letter is saying. NLP works in a similar way. A computer cannot read words the way we do, so natural language processing turns language into pieces and numbers it can work with, step by step.",
+      "visual": {
+        "type": "bullets",
+        "title": "The translator analogy",
+        "items": [
+          "Break the letter into pieces",
+          "Look each piece up",
+          "Work out the whole meaning"
+        ]
+      },
+      "cues": [
+        "breaks the letter into small pieces",
+        "looks each piece up in a dictionary",
+        "works out what the whole letter"
+      ]
+    },
+    {
+      "chapter": "Step 1: Tokens",
+      "narration": "Step one is tokenization. The computer splits your sentence into small pieces called tokens. A token is often a whole word, but it can also be part of a word or a punctuation mark. Then each token is swapped for a number, because computers work with numbers, not letters. The numbers on screen are only examples. Every system has its own numbering.",
+      "visual": {
+        "type": "tokens",
+        "title": "Step 1: Tokenization",
+        "sentence": "I love learning about AI",
+        "tokens": [
+          "I",
+          "love",
+          "learning",
+          "about",
+          "AI"
+        ],
+        "ids": [
+          40,
+          1842,
+          5420,
+          612,
+          9021
+        ],
+        "note": "Example numbers only"
+      },
+      "cues": {
+        "split": "splits your sentence",
+        "ids": "swapped for a number"
+      }
+    },
+    {
+      "chapter": "Step 2: Meaning as numbers",
+      "narration": "A number alone does not tell the computer what a word means. So the next step gives each token a long list of numbers, called an embedding. You can think of an embedding as a position on a map of meaning. Words used in similar ways end up close together: cat near dog, car near truck, pizza near rice. A real map has hundreds or thousands of dimensions, but the idea is the same. Closeness means similar use.",
+      "visual": {
+        "type": "wordmap",
+        "title": "Step 2: A map of meaning"
+      },
+      "cues": {
+        "map": "position on a map of meaning",
+        "c0": "cat near dog",
+        "c1": "car near truck",
+        "c2": "pizza near rice",
+        "note": "hundreds or thousands of dimensions"
+      }
+    },
+    {
+      "chapter": "Step 3: Learning patterns",
+      "narration": "Step three is learning. A model is trained on huge amounts of text. It learns patterns, such as which words tend to appear together, and how word order changes meaning.",
+      "visual": {
+        "type": "bullets",
+        "title": "Step 3: Learning patterns",
+        "items": [
+          "Trained on huge amounts of text",
+          "Learns which words appear together",
+          "Learns how word order changes meaning"
+        ]
+      },
+      "cues": [
+        "huge amounts of text",
+        "which words tend to appear together",
+        "how word order changes meaning"
+      ]
+    },
+    {
+      "narration": "Once trained, the model handles new text in the same steps. When you give it new text, your words become tokens. The tokens become numbers. The model works with those numbers. And then it produces an answer, such as a translation, a label, or a reply.",
+      "visual": {
+        "type": "pipeline",
+        "title": "What happens to new text",
+        "stages": [
+          {
+            "label": "Your text",
+            "color": "orange"
+          },
+          {
+            "label": "Tokens",
+            "color": "blue"
+          },
+          {
+            "label": "Numbers",
+            "color": "blue"
+          },
+          {
+            "label": "Model",
+            "color": "green"
+          },
+          {
+            "label": "Answer",
+            "color": "orange"
+          }
+        ]
+      },
+      "cues": {
+        "s0": "give it new text",
+        "s1": "your words become tokens",
+        "s2": "The tokens become numbers",
+        "s3": "The model works with",
+        "s4": "it produces an answer"
+      }
+    },
+    {
+      "chapter": "NLP in your day",
+      "narration": "You use NLP every day. Search engines use it to understand what you are looking for. Your email uses it to filter spam. Phones use it to autocomplete messages and to turn speech into text. Translation tools and chatbots are built on it too.",
+      "visual": {
+        "type": "bullets",
+        "title": "You use NLP every day",
+        "items": [
+          "Search engines",
+          "Spam filters",
+          "Autocomplete and speech to text",
+          "Translation and chatbots"
+        ]
+      },
+      "cues": [
+        "Search engines use it",
+        "Your email uses it",
+        "autocomplete messages",
+        "Translation tools and chatbots"
+      ]
+    },
+    {
+      "chapter": "Why language is hard",
+      "narration": "Language is hard for computers. The word bank can mean the side of a river or a place for money, and only the context tells you which. The sentence, I saw her duck, could be about a bird or about someone bending down. Sarcasm and slang trip up even the best systems. And languages with less text available online, often including many African languages, usually get weaker tools than English.",
+      "visual": {
+        "type": "bullets",
+        "title": "Why language is hard",
+        "items": [
+          "Words have many meanings",
+          "Context changes everything",
+          "Sarcasm and slang",
+          "Less data for some languages"
+        ]
+      },
+      "cues": [
+        "The word bank",
+        "I saw her duck",
+        "Sarcasm and slang",
+        "languages with less text"
+      ]
+    },
+    {
+      "narration": "So does a computer truly understand language the way you do? Researchers still debate that. What we know is that these systems are very good at finding patterns in text, and that is often enough to be useful.",
+      "visual": {
+        "type": "title",
+        "title": "Pattern or understanding?",
+        "subtitle": "Researchers still debate it"
+      }
+    },
+    {
+      "chapter": "Recap",
+      "narration": "Let's recap. One: NLP helps computers work with human language by turning it into numbers. Two: the steps are tokens, then embeddings, then a trained model that finds patterns. Three: you already use it in search, translation, spam filters, and chatbots.",
+      "visual": {
+        "type": "bullets",
+        "title": "Three takeaways",
+        "items": [
+          "NLP turns language into numbers",
+          "Tokens, then embeddings, then a trained model",
+          "You already use it every day"
+        ]
+      },
+      "cues": [
+        "One:",
+        "Two:",
+        "Three:"
+      ]
+    },
+    {
+      "narration": "Modern chatbots take these ideas much further. In the next video, we look at how large language models predict the next word, and why that idea is so powerful. If this helped, subscribe, and comment with the concept you want explained next. See you in the next one.",
+      "visual": {
+        "type": "title",
+        "title": "Next: How LLMs predict the next word",
+        "subtitle": "Subscribe so you do not miss it"
+      }
+    }
+  ],
+  "youtube": {
+    "title": "What Is Natural Language Processing (NLP)? Explained Simply",
+    "summary": "How does your phone know what you mean when you type a question? This video explains natural language processing (NLP) step by step: tokens, embeddings as a map of meaning, how models learn patterns, why language is hard for computers, and where you already use NLP every day.",
+    "tags": [
+      "what is NLP",
+      "natural language processing",
+      "NLP explained",
+      "NLP for beginners",
+      "tokenization",
+      "word embeddings",
+      "AI for beginners",
+      "how chatbots work"
+    ],
+    "hashtags": [
+      "#NLP",
+      "#AI",
+      "#MachineLearning"
+    ],
+    "playlist": "AI for Beginners",
+    "category": "Education",
+    "next_video": "How LLMs Predict the Next Word"
+  }
+}

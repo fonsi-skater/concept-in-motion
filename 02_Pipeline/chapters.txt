@@ -1,0 +1,8 @@
+0:00 Hook
+0:19 The translator analogy
+0:44 Step 1: Tokens
+1:09 Step 2: Meaning as numbers
+1:37 Step 3: Learning patterns
+2:09 NLP in your day
+2:27 Why language is hard
+3:08 Recap

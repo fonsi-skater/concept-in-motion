@@ -1,0 +1,171 @@
+{
+  "title": "What Is an API? Explained with a Restaurant",
+  "scenes": [
+    {
+      "chapter": "Hook",
+      "narration": "Your weather app does not own a single weather station. So how does it know it is raining in Nairobi right now? The answer is something you use hundreds of times a day without noticing: an API. By the end of this video, you will understand exactly what that is.",
+      "visual": {
+        "type": "title",
+        "title": "What is an API?",
+        "subtitle": "Explained with a restaurant"
+      }
+    },
+    {
+      "chapter": "The restaurant analogy",
+      "narration": "Imagine you are at a restaurant. You are hungry, but you cannot walk into the kitchen and start cooking. You also do not need to know how the kitchen works. You just need a way to ask for food and get it back. That is the waiter. You give the waiter your order, the waiter carries it to the kitchen, the kitchen prepares it, and the waiter brings your meal back.",
+      "visual": {
+        "type": "restaurant",
+        "mode": "intro",
+        "title": "The restaurant"
+      },
+      "cues": {
+        "customer": "you are at a restaurant",
+        "kitchen": "walk into the kitchen",
+        "waiter": "That is the waiter",
+        "order": "You give the waiter your order",
+        "meal": "brings your meal back"
+      }
+    },
+    {
+      "narration": "An API, short for Application Programming Interface, is the waiter. It is the messenger between two pieces of software. One side asks. The other side answers. And the one asking never has to see what happens inside.",
+      "visual": {
+        "type": "restaurant",
+        "mode": "mapping",
+        "title": "Now in software terms"
+      },
+      "cues": {
+        "api": "An API",
+        "software": "messenger between two pieces of software",
+        "hide": "never has to see"
+      }
+    },
+    {
+      "chapter": "How an API really works",
+      "narration": "Now let's swap the restaurant for the real thing. The customer is your weather app. The kitchen is a weather company's server, which holds all the data. The waiter is the API. Step one is the request. Your app sends a message that says, give me the weather for Nairobi, in a format the server understands. Step two: the API receives it, checks that the request is valid, and often checks that you are allowed to ask.",
+      "visual": {
+        "type": "flow",
+        "mode": "request",
+        "title": "Step 1 and 2: the request",
+        "request": "Request: weather in Nairobi?",
+        "thinking": "Checking the request..."
+      },
+      "cues": {
+        "app": "is your weather app",
+        "server": "is a weather company's server",
+        "api": "The waiter is the API",
+        "request": "Step one is the request",
+        "check": "Step two",
+        "forward": "allowed to ask"
+      }
+    },
+    {
+      "narration": "Step three: the server does the work. It looks up the data and prepares an answer. Step four is the response. The API carries the answer back, usually in a format called JSON, which is simply neatly organized text: city, Nairobi. Temperature, twenty four degrees. Condition, light rain. Then your app turns that data into the icons and numbers you see.",
+      "visual": {
+        "type": "flow",
+        "mode": "response",
+        "title": "Step 3 and 4: the response",
+        "response": "Response: 24C, light rain",
+        "thinking": "Looking up data..."
+      },
+      "cues": {
+        "work": "Step three",
+        "response": "Step four is the response",
+        "json": "neatly organized text",
+        "arrive": "Then your app turns"
+      }
+    },
+    {
+      "narration": "Notice what did not happen. Your app never touched the weather company's database. It never needed to know how the data was collected. It only knew how to ask, and how to read the answer. That separation is the whole point.",
+      "visual": {
+        "type": "bullets",
+        "title": "Why this design works",
+        "items": [
+          "The app never touches the database",
+          "It only asks and reads the answer",
+          "Each side can change without breaking the other"
+        ]
+      },
+      "cues": [
+        "never touched",
+        "It only knew how to ask",
+        "That separation"
+      ]
+    },
+    {
+      "narration": "This is why APIs are everywhere. When you pay online, a shop talks to your bank through an API. When you log in with Google, a website talks to Google through an API. When a travel site compares flights, it asks dozens of airline APIs at once.",
+      "visual": {
+        "type": "bullets",
+        "title": "APIs are everywhere",
+        "items": [
+          "Paying online: shop and bank",
+          "Log in with Google: website and Google",
+          "Comparing flights: travel site and airlines"
+        ]
+      },
+      "cues": [
+        "When you pay online",
+        "When you log in with Google",
+        "When a travel site compares flights"
+      ]
+    },
+    {
+      "chapter": "Live example",
+      "narration": "Let's see how little code it takes. This free, public API returns a random joke. A few lines of Python ask a server across the world a question and get an answer back. What comes back is not a pretty page. It is raw data, a setup and a punchline, and apps decorate it. That is the power of an API.",
+      "visual": {
+        "type": "code",
+        "title": "Asking an API in Python",
+        "code": "import requests\n\nurl = \"https://official-joke-api.appspot.com/random_joke\"\ndata = requests.get(url).json()\nprint(data[\"setup\"])\nprint(data[\"punchline\"])",
+        "output": "Output: a setup line, then a punchline"
+      },
+      "cues": {
+        "output": "What comes back"
+      }
+    },
+    {
+      "chapter": "Recap",
+      "narration": "Let's recap in three points. One: an API is a messenger that lets two programs talk without seeing each other's insides. Two: it works on request and response, like ordering and receiving food. Three: almost every app you use depends on dozens of them.",
+      "visual": {
+        "type": "bullets",
+        "title": "Three takeaways",
+        "items": [
+          "An API is a messenger between programs",
+          "Request goes out, response comes back",
+          "Almost every app depends on APIs"
+        ]
+      },
+      "cues": [
+        "One: an API is a messenger",
+        "Two: it works on request",
+        "Three: almost every app"
+      ]
+    },
+    {
+      "narration": "Next time, we answer the question this video quietly raised: when your app sends that request, how does it physically travel across the world? That is how the internet works. If this helped, subscribe, and comment with the concept you want explained next. See you in the next one.",
+      "visual": {
+        "type": "title",
+        "title": "Next: How the internet works",
+        "subtitle": "Subscribe so you do not miss it"
+      }
+    }
+  ],
+  "youtube": {
+    "title": "What Is an API? Explained with a Restaurant",
+    "summary": "What is an API, and how does your weather app know it is raining without owning a single weather station? This video explains APIs with a simple restaurant analogy, then shows a real request and response, and a short Python example.",
+    "tags": [
+      "what is an API",
+      "API explained",
+      "API for beginners",
+      "how APIs work",
+      "REST API basics",
+      "tech explained"
+    ],
+    "hashtags": [
+      "#API",
+      "#LearnToCode",
+      "#TechExplained"
+    ],
+    "playlist": "Tech Basics",
+    "category": "Education",
+    "next_video": "How the Internet Works"
+  }
+}

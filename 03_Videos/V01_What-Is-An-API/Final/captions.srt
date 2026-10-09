@@ -1,0 +1,256 @@
+1
+00:00:00,000 --> 00:00:02,510
+Your weather app does not own a single weather
+
+2
+00:00:02,510 --> 00:00:05,020
+station. So how does it know it is raining
+
+3
+00:00:05,020 --> 00:00:07,530
+in Nairobi right now? The answer is something you
+
+4
+00:00:07,530 --> 00:00:10,039
+use hundreds of times a day without noticing: an
+
+5
+00:00:10,039 --> 00:00:12,549
+API. By the end of this video, you will
+
+6
+00:00:12,549 --> 00:00:13,944
+understand exactly what that is.
+
+7
+00:00:14,344 --> 00:00:16,685
+Imagine you are at a restaurant. You are hungry,
+
+8
+00:00:16,685 --> 00:00:19,026
+but you cannot walk into the kitchen and start
+
+9
+00:00:19,026 --> 00:00:21,368
+cooking. You also do not need to know how
+
+10
+00:00:21,368 --> 00:00:23,709
+the kitchen works. You just need a way to
+
+11
+00:00:23,709 --> 00:00:26,051
+ask for food and get it back. That is
+
+12
+00:00:26,051 --> 00:00:28,392
+the waiter. You give the waiter your order, the
+
+13
+00:00:28,392 --> 00:00:30,734
+waiter carries it to the kitchen, the kitchen prepares
+
+14
+00:00:30,734 --> 00:00:32,815
+it, and the waiter brings your meal back.
+
+15
+00:00:33,215 --> 00:00:36,412
+An API, short for Application Programming Interface, is the
+
+16
+00:00:36,412 --> 00:00:39,609
+waiter. It is the messenger between two pieces of
+
+17
+00:00:39,609 --> 00:00:42,806
+software. One side asks. The other side answers. And
+
+18
+00:00:42,806 --> 00:00:46,002
+the one asking never has to see what happens
+
+19
+00:00:46,002 --> 00:00:46,358
+inside.
+
+20
+00:00:46,758 --> 00:00:49,444
+Now let's swap the restaurant for the real thing.
+
+21
+00:00:49,444 --> 00:00:52,131
+The customer is your weather app. The kitchen is
+
+22
+00:00:52,131 --> 00:00:54,818
+a weather company's server, which holds all the data.
+
+23
+00:00:54,818 --> 00:00:57,505
+The waiter is the API. Step one is the
+
+24
+00:00:57,505 --> 00:01:00,192
+request. Your app sends a message that says, give
+
+25
+00:01:00,192 --> 00:01:02,879
+me the weather for Nairobi, in a format the
+
+26
+00:01:02,879 --> 00:01:05,566
+server understands. Step two: the API receives it, checks
+
+27
+00:01:05,566 --> 00:01:08,253
+that the request is valid, and often checks that
+
+28
+00:01:08,253 --> 00:01:09,745
+you are allowed to ask.
+
+29
+00:01:10,145 --> 00:01:13,386
+Step three: the server does the work. It looks
+
+30
+00:01:13,386 --> 00:01:16,627
+up the data and prepares an answer. Step four
+
+31
+00:01:16,627 --> 00:01:19,868
+is the response. The API carries the answer back,
+
+32
+00:01:19,868 --> 00:01:23,109
+usually in a format called JSON, which is simply
+
+33
+00:01:23,109 --> 00:01:26,350
+neatly organized text: city, Nairobi. Temperature, twenty four degrees.
+
+34
+00:01:26,350 --> 00:01:29,591
+Condition, light rain. Then your app turns that data
+
+35
+00:01:29,591 --> 00:01:32,111
+into the icons and numbers you see.
+
+36
+00:01:32,511 --> 00:01:35,121
+Notice what did not happen. Your app never touched
+
+37
+00:01:35,121 --> 00:01:37,731
+the weather company's database. It never needed to know
+
+38
+00:01:37,731 --> 00:01:40,340
+how the data was collected. It only knew how
+
+39
+00:01:40,340 --> 00:01:42,950
+to ask, and how to read the answer. That
+
+40
+00:01:42,950 --> 00:01:44,400
+separation is the whole point.
+
+41
+00:01:44,800 --> 00:01:47,572
+This is why APIs are everywhere. When you pay
+
+42
+00:01:47,572 --> 00:01:50,345
+online, a shop talks to your bank through an
+
+43
+00:01:50,345 --> 00:01:53,117
+API. When you log in with Google, a website
+
+44
+00:01:53,117 --> 00:01:55,889
+talks to Google through an API. When a travel
+
+45
+00:01:55,889 --> 00:01:58,662
+site compares flights, it asks dozens of airline APIs
+
+46
+00:01:58,662 --> 00:01:59,278
+at once.
+
+47
+00:01:59,678 --> 00:02:02,249
+Let's see how little code it takes. This free,
+
+48
+00:02:02,249 --> 00:02:04,820
+public API returns a random joke. A few lines
+
+49
+00:02:04,820 --> 00:02:07,391
+of Python ask a server across the world a
+
+50
+00:02:07,391 --> 00:02:09,962
+question and get an answer back. What comes back
+
+51
+00:02:09,962 --> 00:02:12,533
+is not a pretty page. It is raw data,
+
+52
+00:02:12,533 --> 00:02:15,104
+a setup and a punchline, and apps decorate it.
+
+53
+00:02:15,104 --> 00:02:17,104
+That is the power of an API.
+
+54
+00:02:17,504 --> 00:02:20,594
+Let's recap in three points. One: an API is
+
+55
+00:02:20,594 --> 00:02:23,683
+a messenger that lets two programs talk without seeing
+
+56
+00:02:23,683 --> 00:02:26,773
+each other's insides. Two: it works on request and
+
+57
+00:02:26,773 --> 00:02:29,863
+response, like ordering and receiving food. Three: almost every
+
+58
+00:02:29,863 --> 00:02:32,609
+app you use depends on dozens of them.
+
+59
+00:02:33,009 --> 00:02:35,979
+Next time, we answer the question this video quietly
+
+60
+00:02:35,979 --> 00:02:38,950
+raised: when your app sends that request, how does
+
+61
+00:02:38,950 --> 00:02:41,920
+it physically travel across the world? That is how
+
+62
+00:02:41,920 --> 00:02:44,891
+the internet works. If this helped, subscribe, and comment
+
+63
+00:02:44,891 --> 00:02:47,861
+with the concept you want explained next. See you
+
+64
+00:02:47,861 --> 00:02:49,181
+in the next one.
+

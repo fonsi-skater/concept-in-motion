@@ -1,0 +1,280 @@
+1
+00:00:00,000 --> 00:00:02,534
+When you type good restaurants near me into your
+
+2
+00:00:02,534 --> 00:00:05,068
+phone, how does a machine that only understands numbers
+
+3
+00:00:05,068 --> 00:00:07,602
+know what you mean? The field that makes this
+
+4
+00:00:07,602 --> 00:00:10,136
+possible is called natural language processing, or NLP. By
+
+5
+00:00:10,136 --> 00:00:12,669
+the end of this video, you will know how
+
+6
+00:00:12,669 --> 00:00:15,203
+a computer turns your words into something it can
+
+7
+00:00:15,203 --> 00:00:15,766
+work with.
+
+8
+00:00:16,166 --> 00:00:18,860
+Imagine you receive a letter in a language you
+
+9
+00:00:18,860 --> 00:00:21,553
+do not know. You hire a translator who breaks
+
+10
+00:00:21,553 --> 00:00:24,247
+the letter into small pieces, looks each piece up
+
+11
+00:00:24,247 --> 00:00:26,940
+in a dictionary, and then works out what the
+
+12
+00:00:26,940 --> 00:00:29,634
+whole letter is saying. NLP works in a similar
+
+13
+00:00:29,634 --> 00:00:32,327
+way. A computer cannot read words the way we
+
+14
+00:00:32,327 --> 00:00:35,021
+do, so natural language processing turns language into pieces
+
+15
+00:00:35,021 --> 00:00:37,714
+and numbers it can work with, step by step.
+
+16
+00:00:38,114 --> 00:00:41,000
+Step one is tokenization. The computer splits your sentence
+
+17
+00:00:41,000 --> 00:00:43,885
+into small pieces called tokens. A token is often
+
+18
+00:00:43,885 --> 00:00:46,770
+a whole word, but it can also be part
+
+19
+00:00:46,770 --> 00:00:49,656
+of a word or a punctuation mark. Then each
+
+20
+00:00:49,656 --> 00:00:52,541
+token is swapped for a number, because computers work
+
+21
+00:00:52,541 --> 00:00:55,426
+with numbers, not letters. The numbers on screen are
+
+22
+00:00:55,426 --> 00:00:57,991
+only examples. Every system has its own numbering.
+
+23
+00:00:58,391 --> 00:01:01,081
+A number alone does not tell the computer what
+
+24
+00:01:01,081 --> 00:01:03,771
+a word means. So the next step gives each
+
+25
+00:01:03,771 --> 00:01:06,461
+token a long list of numbers, called an embedding.
+
+26
+00:01:06,461 --> 00:01:09,151
+You can think of an embedding as a position
+
+27
+00:01:09,151 --> 00:01:11,840
+on a map of meaning. Words used in similar
+
+28
+00:01:11,840 --> 00:01:14,530
+ways end up close together: cat near dog, car
+
+29
+00:01:14,530 --> 00:01:17,220
+near truck, pizza near rice. A real map has
+
+30
+00:01:17,220 --> 00:01:19,910
+hundreds or thousands of dimensions, but the idea is
+
+31
+00:01:19,910 --> 00:01:21,704
+the same. Closeness means similar use.
+
+32
+00:01:22,104 --> 00:01:24,942
+Step three is learning. A model is trained on
+
+33
+00:01:24,942 --> 00:01:27,781
+huge amounts of text. It learns patterns, such as
+
+34
+00:01:27,781 --> 00:01:30,620
+which words tend to appear together, and how word
+
+35
+00:01:30,620 --> 00:01:31,566
+order changes meaning.
+
+36
+00:01:31,966 --> 00:01:34,946
+Once trained, the model handles new text in the
+
+37
+00:01:34,946 --> 00:01:37,926
+same steps. When you give it new text, your
+
+38
+00:01:37,926 --> 00:01:40,906
+words become tokens. The tokens become numbers. The model
+
+39
+00:01:40,906 --> 00:01:43,887
+works with those numbers. And then it produces an
+
+40
+00:01:43,887 --> 00:01:46,867
+answer, such as a translation, a label, or a
+
+41
+00:01:46,867 --> 00:01:47,198
+reply.
+
+42
+00:01:47,598 --> 00:01:50,460
+You use NLP every day. Search engines use it
+
+43
+00:01:50,460 --> 00:01:53,321
+to understand what you are looking for. Your email
+
+44
+00:01:53,321 --> 00:01:56,183
+uses it to filter spam. Phones use it to
+
+45
+00:01:56,183 --> 00:01:59,044
+autocomplete messages and to turn speech into text. Translation
+
+46
+00:01:59,044 --> 00:02:01,588
+tools and chatbots are built on it too.
+
+47
+00:02:01,988 --> 00:02:04,966
+Language is hard for computers. The word bank can
+
+48
+00:02:04,966 --> 00:02:07,944
+mean the side of a river or a place
+
+49
+00:02:07,944 --> 00:02:10,922
+for money, and only the context tells you which.
+
+50
+00:02:10,922 --> 00:02:13,900
+The sentence, I saw her duck, could be about
+
+51
+00:02:13,900 --> 00:02:16,878
+a bird or about someone bending down. Sarcasm and
+
+52
+00:02:16,878 --> 00:02:19,856
+slang trip up even the best systems. And languages
+
+53
+00:02:19,856 --> 00:02:22,834
+with less text available online, often including many African
+
+54
+00:02:22,834 --> 00:02:25,150
+languages, usually get weaker tools than English.
+
+55
+00:02:25,550 --> 00:02:28,113
+So does a computer truly understand language the way
+
+56
+00:02:28,113 --> 00:02:30,675
+you do? Researchers still debate that. What we know
+
+57
+00:02:30,675 --> 00:02:33,238
+is that these systems are very good at finding
+
+58
+00:02:33,238 --> 00:02:35,801
+patterns in text, and that is often enough to
+
+59
+00:02:35,801 --> 00:02:36,370
+be useful.
+
+60
+00:02:36,770 --> 00:02:40,341
+Let's recap. One: NLP helps computers work with human
+
+61
+00:02:40,341 --> 00:02:43,911
+language by turning it into numbers. Two: the steps
+
+62
+00:02:43,911 --> 00:02:47,482
+are tokens, then embeddings, then a trained model that
+
+63
+00:02:47,482 --> 00:02:51,052
+finds patterns. Three: you already use it in search,
+
+64
+00:02:51,052 --> 00:02:53,036
+translation, spam filters, and chatbots.
+
+65
+00:02:53,436 --> 00:02:56,329
+Modern chatbots take these ideas much further. In the
+
+66
+00:02:56,329 --> 00:02:59,222
+next video, we look at how large language models
+
+67
+00:02:59,222 --> 00:03:02,115
+predict the next word, and why that idea is
+
+68
+00:03:02,115 --> 00:03:05,008
+so powerful. If this helped, subscribe, and comment with
+
+69
+00:03:05,008 --> 00:03:07,901
+the concept you want explained next. See you in
+
+70
+00:03:07,901 --> 00:03:08,866
+the next one.
+

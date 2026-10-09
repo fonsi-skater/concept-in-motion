@@ -1,0 +1,30 @@
+TITLE (copy into YouTube Studio)
+What Is an API? Explained with a Restaurant
+
+DESCRIPTION (copy everything between the lines)
+----------------------------------------
+What is an API, and how does your weather app know it is raining without owning a single weather station? This video explains APIs with a simple restaurant analogy, then shows a real request and response, and a short Python example.
+
+Chapters
+0:00 Hook
+0:14 The restaurant analogy
+0:46 How an API really works
+1:59 Live example
+2:17 Recap
+
+New concept every week on Concept in Motion. Subscribe, and comment with what you want explained next.
+
+Next video: How the Internet Works
+
+#API #LearnToCode #TechExplained
+----------------------------------------
+
+TAGS (Show more > Tags)
+what is an API, API explained, API for beginners, how APIs work, REST API basics, tech explained
+
+PLAYLIST: Tech Basics
+CATEGORY: Education
+AUDIENCE: No, it's not made for kids
+VISIBILITY: Private first, then Public after review
+
+FILES: final.mp4 (or final_music.mp4), captions.srt, thumbnail PNG

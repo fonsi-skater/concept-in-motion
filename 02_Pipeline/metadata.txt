@@ -1,0 +1,33 @@
+TITLE (copy into YouTube Studio)
+What Is Natural Language Processing (NLP)? Explained Simply
+
+DESCRIPTION (copy everything between the lines)
+----------------------------------------
+How does your phone know what you mean when you type a question? This video explains natural language processing (NLP) step by step: tokens, embeddings as a map of meaning, how models learn patterns, why language is hard for computers, and where you already use NLP every day.
+
+Chapters
+0:00 Hook
+0:19 The translator analogy
+0:44 Step 1: Tokens
+1:09 Step 2: Meaning as numbers
+1:37 Step 3: Learning patterns
+2:09 NLP in your day
+2:27 Why language is hard
+3:08 Recap
+
+New concept every week on Concept in Motion. Subscribe, and comment with what you want explained next.
+
+Next video: How LLMs Predict the Next Word
+
+#NLP #AI #MachineLearning
+----------------------------------------
+
+TAGS (Show more > Tags)
+what is NLP, natural language processing, NLP explained, NLP for beginners, tokenization, word embeddings, AI for beginners, how chatbots work
+
+PLAYLIST: AI for Beginners
+CATEGORY: Education
+AUDIENCE: No, it's not made for kids
+VISIBILITY: Private first, then Public after review
+
+FILES: final.mp4 (or final_music.mp4), captions.srt, thumbnail PNG
