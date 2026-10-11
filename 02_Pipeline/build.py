@@ -1,12 +1,40 @@
 #!/usr/bin/env python3
-"""Concept in Motion: script-to-video pipeline.
+r"""Concept in Motion: script-to-video pipeline  (build.py)
+=====================================================================
+WHAT IT DOES
+  scenes_xxx.json  ->  narration audio  ->  Manim animations timed to the audio
+                   ->  final.mp4 + captions.srt + chapters.txt + metadata.txt
 
-scenes.json  ->  narration audio  ->  Manim visuals timed to the audio  ->  final.mp4 + captions.srt + chapters.txt
+HOW IT WORKS (read this if something breaks)
+  1. Reads the scenes file. Each scene has: narration (what you say), visual (what is shown),
+     optional chapter (YouTube chapter title) and optional cues (phrases that trigger visuals).
+  2. AUDIO per scene: if audio/scene_NN.wav (or mp3/m4a) exists it is used (your own recording),
+     otherwise Piper text-to-speech makes it. Speed/pauses are applied here (--speed etc.).
+  3. DURATION of that audio (ffprobe) tells the animation how long to run.
+  4. CUES: each cue phrase is located inside the narration text and converted to a time
+     (position in the text, weighted for punctuation pauses), then moved earlier by --lead
+     so the visual appears BEFORE the words ("show, then say"). Estimated, not frame-exact.
+  5. VISUAL: scenes.py is run with Manim, once per scene, with the settings passed through
+     environment variables SCENE_SPEC, SCENE_DURATION, SCENE_CUES.
+  6. Each scene video + its audio are muxed into build/clip_NN.mp4, all clips are joined with
+     ffmpeg, and captions.srt / chapters.txt / metadata.txt are written next to the pipeline.
 
-Usage:
-  python build.py scenes.json --preview                 # fast low-res draft
-  python build.py scenes.json --voice en_US-lessac-medium   # final, Piper voice
-  python build.py scenes.json                           # final, using audio/scene_01.wav ... you recorded
+COMMANDS (run inside 02_Pipeline)
+  python build.py scenes_nlp.json --preview --voice en_US-lessac-medium     fast 480p draft
+  python build.py scenes_nlp.json --voice en_US-lessac-medium               final 1080p
+  add  --speed 0.85 --sentence-pause 0.5 --scene-pause 0.8                  slower narration
+  add  --only 4                                                             one scene only
+  add  --lead 0.8                                                           visuals earlier (0.2 = later)
+  python build.py scenes_nlp.json --metadata-only                           rewrite metadata.txt only
+
+IMPORTANT
+  * A build OVERWRITES final.mp4, captions.srt, chapters.txt, metadata.txt in this folder.
+    Copy them into 03_Videos\Vxx_Name\Final right after each build.
+  * Delete audio\scene_*.wav before building a NEW video, or old recordings get reused.
+  * "cue phrase not found" = the phrase must be copied EXACTLY from that scene's narration.
+  * If you add a visual type, add it to CLASSES below (see scenes.py for how to write one).
+
+REQUIREMENTS: Python 3.10+, FFmpeg (ffmpeg + ffprobe on PATH), manim, piper-tts (optional if you record voice).
 """
 import argparse
 import json
@@ -18,7 +46,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.resolve()
 CLASSES = {"title": "TitleCard", "bullets": "Bullets", "flow": "Flow", "code": "CodeCard", "restaurant": "Restaurant",
-           "tokens": "Tokens", "wordmap": "WordMap", "pipeline": "Pipeline"}
+           "tokens": "Tokens", "wordmap": "WordMap", "pipeline": "Pipeline",
+           "hub": "Hub", "agentloop": "AgentLoop"}
 PAD = 0.4  # seconds of silence after each scene
 
 

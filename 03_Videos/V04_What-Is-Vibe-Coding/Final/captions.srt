@@ -1,0 +1,240 @@
+1
+00:00:00,000 --> 00:00:03,195
+Imagine building an app by describing what you want
+
+2
+00:00:03,195 --> 00:00:06,390
+in plain English, instead of writing every line of
+
+3
+00:00:06,390 --> 00:00:09,585
+code yourself. An AI assistant generates the code, you
+
+4
+00:00:09,585 --> 00:00:12,780
+run it, explain what is wrong, and ask for
+
+5
+00:00:12,780 --> 00:00:15,975
+changes. That approach is commonly called vibe coding. It
+
+6
+00:00:15,975 --> 00:00:19,170
+can make software creation more accessible, but there is
+
+7
+00:00:19,170 --> 00:00:22,365
+an important catch: code that looks right is not
+
+8
+00:00:22,365 --> 00:00:23,785
+necessarily code that works.
+
+9
+00:00:24,185 --> 00:00:27,589
+Here is the basic workflow. First, describe the problem
+
+10
+00:00:27,589 --> 00:00:30,993
+and what the finished app should do. Second, ask
+
+11
+00:00:30,993 --> 00:00:34,396
+the AI to generate a solution. Third, run the
+
+12
+00:00:34,396 --> 00:00:37,800
+code and observe what actually happens. Fourth, give the
+
+13
+00:00:37,800 --> 00:00:41,204
+AI specific feedback and improve the result. You repeat
+
+14
+00:00:41,204 --> 00:00:44,608
+that cycle until the software behaves as expected. Think
+
+15
+00:00:44,608 --> 00:00:48,011
+of the AI as a coding assistant, not a
+
+16
+00:00:48,011 --> 00:00:48,768
+magic button.
+
+17
+00:00:49,168 --> 00:00:52,369
+Suppose you want a simple task list. You could
+
+18
+00:00:52,369 --> 00:00:55,570
+prompt an AI: build a web page where I
+
+19
+00:00:55,570 --> 00:00:58,771
+can add tasks, mark them complete, and remove them.
+
+20
+00:00:58,771 --> 00:01:01,972
+Keep the design simple, explain the files you create,
+
+21
+00:01:01,972 --> 00:01:05,174
+and tell me how to run the app. The
+
+22
+00:01:05,174 --> 00:01:08,375
+AI may generate HTML, CSS, and JavaScript. You open
+
+23
+00:01:08,375 --> 00:01:11,576
+the page, try adding a task, and check whether
+
+24
+00:01:11,576 --> 00:01:13,710
+every button does what you requested.
+
+25
+00:01:14,110 --> 00:01:17,886
+Vibe coding can help beginners turn ideas into prototypes,
+
+26
+00:01:17,886 --> 00:01:21,661
+help experienced developers explore options quickly, and reduce the
+
+27
+00:01:21,661 --> 00:01:25,437
+amount of repetitive code people write by hand. It
+
+28
+00:01:25,437 --> 00:01:29,212
+is especially useful for experimenting and learning. But speed
+
+29
+00:01:29,212 --> 00:01:32,988
+during the first draft does not guarantee quality when
+
+30
+00:01:32,988 --> 00:01:36,763
+the project becomes larger, more complex, or important to
+
+31
+00:01:36,763 --> 00:01:37,602
+other people.
+
+32
+00:01:38,002 --> 00:01:41,499
+Here is where you need to be careful. AI
+
+33
+00:01:41,499 --> 00:01:44,995
+can produce bugs, misunderstand requirements, use unsafe patterns, or
+
+34
+00:01:44,995 --> 00:01:48,491
+introduce unnecessary dependencies. A feature may work in one
+
+35
+00:01:48,491 --> 00:01:51,987
+example and fail in another. You might also end
+
+36
+00:01:51,987 --> 00:01:55,483
+up with code you cannot explain or maintain. And
+
+37
+00:01:55,483 --> 00:01:58,980
+you should never paste passwords, private API keys, or
+
+38
+00:01:58,980 --> 00:02:02,476
+confidential information into an AI tool without understanding its
+
+39
+00:02:02,476 --> 00:02:03,253
+data policies.
+
+40
+00:02:03,653 --> 00:02:07,345
+So how do you use it responsibly? Break a
+
+41
+00:02:07,345 --> 00:02:11,037
+large idea into small tasks. Ask the AI to
+
+42
+00:02:11,037 --> 00:02:14,729
+explain important changes. Read the code differences before accepting
+
+43
+00:02:14,729 --> 00:02:18,421
+them. Run tests, try unusual inputs, and keep your
+
+44
+00:02:18,421 --> 00:02:22,113
+work under version control with Git so you can
+
+45
+00:02:22,113 --> 00:02:25,805
+review changes and recover earlier versions. Before deploying, check
+
+46
+00:02:25,805 --> 00:02:29,497
+security and configuration carefully. For a real application, you
+
+47
+00:02:29,497 --> 00:02:32,369
+remain responsible for the code you ship.
+
+48
+00:02:32,769 --> 00:02:36,418
+The key lesson is simple. Vibe coding lets you
+
+49
+00:02:36,418 --> 00:02:40,067
+describe an idea and collaborate with AI to create
+
+50
+00:02:40,067 --> 00:02:43,717
+software faster. That is powerful, but generating code is
+
+51
+00:02:43,717 --> 00:02:47,366
+only one part of engineering. Reliable software also requires
+
+52
+00:02:47,366 --> 00:02:51,016
+understanding, testing, security, and maintenance. Learn to use AI
+
+53
+00:02:51,016 --> 00:02:54,665
+to accelerate your thinking, not replace it. Next, we
+
+54
+00:02:54,665 --> 00:02:58,315
+will explore how the internet works and how information
+
+55
+00:02:58,315 --> 00:02:59,531
+travels between devices.
+
+56
+00:02:59,931 --> 00:03:03,174
+If this helped you understand vibe coding, subscribe to
+
+57
+00:03:03,174 --> 00:03:06,418
+Concept in Motion and comment with the technology you
+
+58
+00:03:06,418 --> 00:03:09,661
+want explained next. Keep experimenting, keep learning, and always
+
+59
+00:03:09,661 --> 00:03:12,904
+test what you build. See you in the next
+
+60
+00:03:12,904 --> 00:03:13,265
+video.
+

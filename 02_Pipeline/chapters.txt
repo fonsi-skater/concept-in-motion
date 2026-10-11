@@ -1,8 +1,10 @@
 0:00 Hook
-0:19 The translator analogy
-0:44 Step 1: Tokens
-1:09 Step 2: Meaning as numbers
-1:37 Step 3: Learning patterns
-2:09 NLP in your day
-2:27 Why language is hard
-3:08 Recap
+0:19 Chatbot vs agent
+0:39 The assistant analogy
+1:02 The four parts
+1:32 Tools are APIs
+1:54 The agent loop
+2:20 A worked example
+3:02 Where agents show up
+3:18 Limits and safety
+3:42 Recap

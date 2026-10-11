@@ -1,0 +1,35 @@
+TITLE (copy into YouTube Studio)
+What Is an AI Agent? How AI Agents Work (Simple Explanation)
+
+DESCRIPTION (copy everything between the lines)
+----------------------------------------
+A chatbot answers. An AI agent gets things done. This video explains what an AI agent is, its four parts (model, tools, memory, goal), the think, act, observe loop that drives it, a step-by-step example of booking a meeting, and the limits and safety rules every agent needs.
+
+Chapters
+0:00 Hook
+0:19 Chatbot vs agent
+0:39 The assistant analogy
+1:02 The four parts
+1:32 Tools are APIs
+1:54 The agent loop
+2:20 A worked example
+3:02 Where agents show up
+3:18 Limits and safety
+3:42 Recap
+
+New concept every week on Concept in Motion. Subscribe, and comment with what you want explained next.
+
+Next video: How LLMs Predict the Next Word
+
+#AIAgents #AI #AgenticAI
+----------------------------------------
+
+TAGS (Show more > Tags)
+what is an AI agent, AI agents explained, how AI agents work, agentic AI, AI agent loop, AI for beginners, chatbot vs AI agent, AI tools explained
+
+PLAYLIST: AI for Beginners
+CATEGORY: Education
+AUDIENCE: No, it's not made for kids
+VISIBILITY: Private first, then Public after review
+
+FILES: final.mp4 (or final_music.mp4), captions.srt, thumbnail PNG

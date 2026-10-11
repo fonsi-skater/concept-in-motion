@@ -1,0 +1,157 @@
+{
+  "title": "What Is Vibe Coding? Build Software with AI",
+  "scenes": [
+    {
+      "chapter": "What is vibe coding?",
+      "narration": "Imagine building an app by describing what you want in plain English, instead of writing every line of code yourself. An AI assistant generates the code, you run it, explain what is wrong, and ask for changes. That approach is commonly called vibe coding. It can make software creation more accessible, but there is an important catch: code that looks right is not necessarily code that works.",
+      "visual": {
+        "type": "title",
+        "title": "What is vibe coding?",
+        "subtitle": "Describe it. Generate it. Test it."
+      }
+    },
+    {
+      "chapter": "The basic workflow",
+      "narration": "Here is the basic workflow. First, describe the problem and what the finished app should do. Second, ask the AI to generate a solution. Third, run the code and observe what actually happens. Fourth, give the AI specific feedback and improve the result. You repeat that cycle until the software behaves as expected. Think of the AI as a coding assistant, not a magic button.",
+      "visual": {
+        "type": "bullets",
+        "title": "The basic workflow",
+        "items": [
+          "Describe the goal and constraints",
+          "Generate an initial solution",
+          "Run it and observe the result",
+          "Review, test, and improve"
+        ]
+      },
+      "cues": [
+        "First, describe the problem",
+        "Second, ask the AI",
+        "Third, run the code",
+        "Fourth, give the AI"
+      ]
+    },
+    {
+      "chapter": "A practical example",
+      "narration": "Suppose you want a simple task list. You could prompt an AI: build a web page where I can add tasks, mark them complete, and remove them. Keep the design simple, explain the files you create, and tell me how to run the app. The AI may generate HTML, CSS, and JavaScript. You open the page, try adding a task, and check whether every button does what you requested.",
+      "visual": {
+        "type": "code",
+        "title": "A better coding prompt",
+        "code": "Build a task list web app.\\nAllow users to add tasks,\\nmark them complete, and delete them.\\nExplain each file and how to run it.",
+        "output": "Goal: a working task list"
+      },
+      "cues": [
+        "Suppose you want a simple task list",
+        "You could prompt an AI",
+        "You open the page"
+      ]
+    },
+    {
+      "chapter": "Why people use it",
+      "narration": "Vibe coding can help beginners turn ideas into prototypes, help experienced developers explore options quickly, and reduce the amount of repetitive code people write by hand. It is especially useful for experimenting and learning. But speed during the first draft does not guarantee quality when the project becomes larger, more complex, or important to other people.",
+      "visual": {
+        "type": "bullets",
+        "title": "Where it can help",
+        "items": [
+          "Turn ideas into prototypes",
+          "Explore possible solutions quickly",
+          "Reduce repetitive coding",
+          "Learn by experimenting"
+        ]
+      },
+      "cues": [
+        "turn ideas into prototypes",
+        "explore options quickly",
+        "does not guarantee quality"
+      ]
+    },
+    {
+      "chapter": "The hidden risks",
+      "narration": "Here is where you need to be careful. AI can produce bugs, misunderstand requirements, use unsafe patterns, or introduce unnecessary dependencies. A feature may work in one example and fail in another. You might also end up with code you cannot explain or maintain. And you should never paste passwords, private API keys, or confidential information into an AI tool without understanding its data policies.",
+      "visual": {
+        "type": "bullets",
+        "title": "What can go wrong?",
+        "items": [
+          "Bugs and misunderstood requirements",
+          "Security problems",
+          "Unnecessary dependencies",
+          "Code that is hard to maintain",
+          "Accidental exposure of secrets"
+        ]
+      },
+      "cues": [
+        "AI can produce bugs",
+        "A feature may work",
+        "never paste passwords"
+      ]
+    },
+    {
+      "chapter": "Use AI responsibly",
+      "narration": "So how do you use it responsibly? Break a large idea into small tasks. Ask the AI to explain important changes. Read the code differences before accepting them. Run tests, try unusual inputs, and keep your work under version control with Git so you can review changes and recover earlier versions. Before deploying, check security and configuration carefully. For a real application, you remain responsible for the code you ship.",
+      "visual": {
+        "type": "bullets",
+        "title": "Build responsibly",
+        "items": [
+          "Work in small steps",
+          "Understand and review changes",
+          "Test normal and unusual inputs",
+          "Use Git to track changes",
+          "Check security before deployment"
+        ]
+      },
+      "cues": [
+        "Break a large idea into small tasks",
+        "Read the code differences",
+        "Run tests",
+        "you remain responsible"
+      ]
+    },
+    {
+      "chapter": "The real takeaway",
+      "narration": "The key lesson is simple. Vibe coding lets you describe an idea and collaborate with AI to create software faster. That is powerful, but generating code is only one part of engineering. Reliable software also requires understanding, testing, security, and maintenance. Learn to use AI to accelerate your thinking, not replace it. Next, we will explore how the internet works and how information travels between devices.",
+      "visual": {
+        "type": "bullets",
+        "title": "Remember these three things",
+        "items": [
+          "AI can help turn ideas into code",
+          "Generated code must be checked",
+          "The developer remains responsible"
+        ]
+      },
+      "cues": [
+        "generating code is only one part",
+        "understanding, testing, security",
+        "not replace it"
+      ]
+    },
+    {
+      "narration": "If this helped you understand vibe coding, subscribe to Concept in Motion and comment with the technology you want explained next. Keep experimenting, keep learning, and always test what you build. See you in the next video.",
+      "visual": {
+        "type": "title",
+        "title": "Concept in Motion",
+        "subtitle": "Keep experimenting. Keep learning."
+      }
+    }
+  ],
+  "youtube": {
+    "title": "What Is Vibe Coding? Build Software with AI",
+    "summary": "What is vibe coding? Learn how people use AI prompts to generate and improve code, see a practical task-list example, and understand why testing, security, and code review still matter.",
+    "tags": [
+      "what is vibe coding",
+      "vibe coding explained",
+      "AI coding for beginners",
+      "AI software development",
+      "AI coding tools",
+      "learn programming",
+      "responsible AI",
+      "tech explained"
+    ],
+    "hashtags": [
+      "#VibeCoding",
+      "#ArtificialIntelligence",
+      "#LearnToCode"
+    ],
+    "playlist": "Tech Basics",
+    "category": "Education",
+    "next_video": "How the Internet Works"
+  }
+}

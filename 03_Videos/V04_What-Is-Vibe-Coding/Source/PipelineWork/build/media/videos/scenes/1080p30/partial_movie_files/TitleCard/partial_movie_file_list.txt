@@ -1,0 +1,4 @@
+# This file records the segment order used by Manim.
+file 'file:C:/Users/HP/Desktop/CONCEPTinMOTION/03_Videos/V04_What-Is-Vibe-Coding/Source/PipelineWork/build/media/videos/scenes/1080p30/partial_movie_files/TitleCard/uncached_00000.mp4'
+file 'file:C:/Users/HP/Desktop/CONCEPTinMOTION/03_Videos/V04_What-Is-Vibe-Coding/Source/PipelineWork/build/media/videos/scenes/1080p30/partial_movie_files/TitleCard/uncached_00001.mp4'
+file 'file:C:/Users/HP/Desktop/CONCEPTinMOTION/03_Videos/V04_What-Is-Vibe-Coding/Source/PipelineWork/build/media/videos/scenes/1080p30/partial_movie_files/TitleCard/uncached_00002.mp4'

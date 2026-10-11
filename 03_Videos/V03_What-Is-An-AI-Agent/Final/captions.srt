@@ -1,0 +1,304 @@
+1
+00:00:00,000 --> 00:00:02,700
+You ask a chatbot to set up a meeting,
+
+2
+00:00:02,700 --> 00:00:05,400
+and it writes you a nice message about setting
+
+3
+00:00:05,400 --> 00:00:08,100
+up meetings. But what if it simply set up
+
+4
+00:00:08,100 --> 00:00:10,800
+the meeting? That is the difference between a chatbot
+
+5
+00:00:10,800 --> 00:00:13,500
+and an AI agent. By the end of this
+
+6
+00:00:13,500 --> 00:00:16,200
+video, you will know what an AI agent is,
+
+7
+00:00:16,200 --> 00:00:18,300
+and the loop that makes it work.
+
+8
+00:00:19,100 --> 00:00:22,410
+A chatbot answers. You ask a question, it writes
+
+9
+00:00:22,410 --> 00:00:25,719
+a reply, and then it waits for you. An
+
+10
+00:00:25,719 --> 00:00:29,029
+AI agent works toward a goal. You tell it
+
+11
+00:00:29,029 --> 00:00:32,339
+what you want done, and it decides the steps,
+
+12
+00:00:32,339 --> 00:00:35,649
+uses tools to take them, checks what happened, and
+
+13
+00:00:35,649 --> 00:00:38,224
+keeps going until the job is finished.
+
+14
+00:00:39,024 --> 00:00:42,453
+Think of a capable personal assistant on their first
+
+15
+00:00:42,453 --> 00:00:45,883
+day. You say, set up a meeting with Amina
+
+16
+00:00:45,883 --> 00:00:49,312
+next week. A good assistant does not reply with
+
+17
+00:00:49,312 --> 00:00:52,742
+advice. They check your calendar, check Amina's calendar, pick
+
+18
+00:00:52,742 --> 00:00:56,172
+a time, and send the invite. They plan, act,
+
+19
+00:00:56,172 --> 00:00:59,601
+look at the result, and adjust. An AI agent
+
+20
+00:00:59,601 --> 00:01:01,887
+is software that does the same.
+
+21
+00:01:02,687 --> 00:01:06,114
+Every agent has four parts. First, a model, usually
+
+22
+00:01:06,114 --> 00:01:09,541
+a large language model. This is the brain that
+
+23
+00:01:09,541 --> 00:01:12,967
+reads the situation and decides what to do next.
+
+24
+00:01:12,967 --> 00:01:16,394
+Second, tools. These are things the agent can use,
+
+25
+00:01:16,394 --> 00:01:19,820
+like a calendar, a web search, or code it
+
+26
+00:01:19,820 --> 00:01:23,247
+can run. Third, memory. It keeps track of what
+
+27
+00:01:23,247 --> 00:01:26,673
+it has done so far. And fourth, a goal
+
+28
+00:01:26,673 --> 00:01:30,100
+and rules, which say what to achieve and what
+
+29
+00:01:30,100 --> 00:01:31,242
+is off limits.
+
+30
+00:01:32,042 --> 00:01:35,583
+Remember the waiter from our API video? Tools work
+
+31
+00:01:35,583 --> 00:01:39,125
+the same way. Each tool is reached through an
+
+32
+00:01:39,125 --> 00:01:42,667
+API. The agent sends a request, reads the answer,
+
+33
+00:01:42,667 --> 00:01:46,209
+and decides what to do next. A calendar tool,
+
+34
+00:01:46,209 --> 00:01:49,750
+a search tool, a code tool, an email tool.
+
+35
+00:01:49,750 --> 00:01:53,292
+The agent can only do what its tools allow.
+
+36
+00:01:54,092 --> 00:01:57,388
+Now the important part: the loop. An agent repeats
+
+37
+00:01:57,388 --> 00:02:00,683
+three steps. Think: the model looks at the goal
+
+38
+00:02:00,683 --> 00:02:03,979
+and what has happened so far, and decides the
+
+39
+00:02:03,979 --> 00:02:07,275
+next action. Act: it uses a tool to take
+
+40
+00:02:07,275 --> 00:02:10,570
+that action. Observe: it reads the result and adds
+
+41
+00:02:10,570 --> 00:02:13,866
+it to its memory. Then it loops back to
+
+42
+00:02:13,866 --> 00:02:17,162
+think again. This continues until the goal is done,
+
+43
+00:02:17,162 --> 00:02:20,091
+or until the agent needs to ask you.
+
+44
+00:02:20,891 --> 00:02:24,698
+Let's follow a real example. The goal: set up
+
+45
+00:02:24,698 --> 00:02:28,504
+a meeting with Amina next week. Think: I need
+
+46
+00:02:28,504 --> 00:02:32,311
+free times for both of us. Act: it asks
+
+47
+00:02:32,311 --> 00:02:36,118
+the calendar tool for your free times. Observe: Tuesday
+
+48
+00:02:36,118 --> 00:02:39,924
+at ten and Wednesday at two are free. Think:
+
+49
+00:02:39,924 --> 00:02:43,731
+now I need to check Amina's calendar. Act: it
+
+50
+00:02:43,731 --> 00:02:47,537
+asks the calendar tool for Amina's free times. Observe:
+
+51
+00:02:47,537 --> 00:02:51,344
+only Wednesday at two works for both. Think: so
+
+52
+00:02:51,344 --> 00:02:55,151
+book Wednesday at two. Act: it creates and sends
+
+53
+00:02:55,151 --> 00:02:58,957
+the invite. Observe: the invite was sent. The goal
+
+54
+00:02:58,957 --> 00:03:01,918
+is done, and the agent tells you.
+
+55
+00:03:02,718 --> 00:03:06,231
+You may already see agents at work. Coding assistants
+
+56
+00:03:06,231 --> 00:03:09,744
+that write code, run it, and fix errors. Support
+
+57
+00:03:09,744 --> 00:03:13,257
+assistants that look up your order and process a
+
+58
+00:03:13,257 --> 00:03:16,770
+refund. Research helpers that search many pages and summarize
+
+59
+00:03:16,770 --> 00:03:17,941
+what they find.
+
+60
+00:03:18,741 --> 00:03:21,880
+Agents are powerful, but they are not magic. They
+
+61
+00:03:21,880 --> 00:03:25,020
+can misunderstand a goal, use a tool the wrong
+
+62
+00:03:25,020 --> 00:03:28,160
+way, or keep going down the wrong path. So
+
+63
+00:03:28,160 --> 00:03:31,300
+well designed agents get only the permissions they need,
+
+64
+00:03:31,300 --> 00:03:34,439
+ask for your approval before risky actions like sending
+
+65
+00:03:34,439 --> 00:03:37,579
+money or deleting files, and keep a log you
+
+66
+00:03:37,579 --> 00:03:40,719
+can check. Treat an agent like a new assistant:
+
+67
+00:03:40,719 --> 00:03:42,114
+helpful, but worth supervising.
+
+68
+00:03:42,914 --> 00:03:46,725
+Let's recap. One: an agent works toward a goal,
+
+69
+00:03:46,725 --> 00:03:50,537
+not just a reply. Two: it runs a loop
+
+70
+00:03:50,537 --> 00:03:54,348
+of think, act, and observe, using tools and memory.
+
+71
+00:03:54,348 --> 00:03:57,313
+Three: it needs limits and human oversight.
+
+72
+00:03:58,113 --> 00:04:01,155
+The brain of every agent is a large language
+
+73
+00:04:01,155 --> 00:04:04,197
+model. In the next video, we open it up
+
+74
+00:04:04,197 --> 00:04:07,240
+and see how it predicts the next word. If
+
+75
+00:04:07,240 --> 00:04:10,282
+this helped, subscribe, and comment with the concept you
+
+76
+00:04:10,282 --> 00:04:13,324
+want explained next. See you in the next one.
+

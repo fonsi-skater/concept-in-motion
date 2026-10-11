@@ -1,11 +1,29 @@
-"""Manim scene templates for Concept in Motion (v2: narration-synced).
+"""Manim scene templates for Concept in Motion  (scenes.py)
+=====================================================================
+Each class below is one VISUAL TYPE you can use in a scenes json file:
+  title, bullets, flow, restaurant, code, tokens, wordmap, pipeline, hub, agentloop
+(the name-to-class table is CLASSES in build.py)
 
-build.py passes each scene's settings through environment variables:
-  SCENE_SPEC     JSON with the visual settings from scenes.json
-  SCENE_DURATION seconds of narration
-  SCENE_CUES     JSON {event_name: seconds}, computed from the phrases you list in "cues",
-                 already shifted earlier so each visual lands just BEFORE the words
-Keep important visuals out of the bottom-right corner (your watermark lives there).
+HOW build.py TALKS TO THIS FILE (environment variables set per scene)
+  SCENE_SPEC     JSON of the scene's "visual" block from the scenes file
+  SCENE_DURATION seconds of narration, so the animation can fill the audio exactly
+  SCENE_CUES     JSON {event_name: seconds}, already shifted earlier so each visual lands
+                 just BEFORE the words that name it
+
+HOW TO ADD A NEW VISUAL TYPE (e.g. "sorting")
+  1. Write a class that extends Scene, read settings with spec(), and put each timed step in a
+     function; then call run_events(self, {"event_name": function, ...}) and finish with
+     hold_until_end(self).  Copy an existing class (Pipeline is the simplest) as a starting point.
+  2. Register it in build.py:  CLASSES = {..., "sorting": "Sorting"}
+  3. Use it in a scenes json:  "visual": {"type": "sorting", ...}, "cues": {"event_name": "exact phrase"}
+  4. Test just that scene:  python build.py file.json --preview --only N
+
+BRAND RULES (keep every video consistent)
+  blue = data / API,  orange = user / packet,  green = server,  dark navy background, Poppins font.
+  Keep important visuals out of the bottom-right corner (the channel watermark lives there).
+
+FONT NOTE: if Manim prints "couldn't load font Poppins", install Poppins "for all users" on Windows and
+restart PowerShell, or set FONT = None below to use the system font.
 """
 import json
 import os
@@ -447,4 +465,153 @@ class Pipeline(Scene):
             return go
 
         run_events(self, {f"s{i}": reveal(i) for i in range(n)})
+        hold_until_end(self)
+
+
+# --------------------------------------------------------------------------- AI-agent templates
+class Hub(Scene):
+    """A centre node with satellites that appear one by one (parts of a system, tools around an agent...).
+    spec: title, center (label), items[] (label, sub, color) with 1 to 4 items.
+    events: center, n0, n1, n2, n3  (satellite order: left, right, bottom, top)"""
+
+    def construct(self):
+        s = spec()
+        items = s.get("items", [])
+        if s.get("title"):
+            self.add(T(s["title"], font_size=40, color=MIST, weight=BOLD).to_edge(UP, buff=0.6))
+        center = make_node(s.get("center", "Centre"), COLORS[s.get("center_color", "orange")], UP * -0.15)
+        center[0].set_width(3.2)
+        center[1].move_to(center[0])
+        slots = [LEFT * 4.8 + DOWN * 0.15, RIGHT * 4.8 + DOWN * 0.15, DOWN * 2.5, UP * 2.05]
+        default_cols = ["blue", "green", "blue", "green"]
+        sats, lines = [], []
+        for i, it in enumerate(items[:4]):
+            col = COLORS[it.get("color", default_cols[i])]
+            box = RoundedRectangle(corner_radius=0.2, width=3.7, height=1.35, color=col, fill_opacity=0.22)
+            label = T(it["label"], font_size=30, color=MIST, weight=BOLD)
+            sub = T(it.get("sub", ""), font_size=20, color=SOFT)
+            txt = VGroup(label, sub).arrange(DOWN, buff=0.12)
+            fit(txt, 3.3).move_to(box)
+            sat = VGroup(box, txt).move_to(slots[i])
+            sats.append(sat)
+            d = [LEFT, RIGHT, DOWN, UP][i]               # connect facing edges, never through the labels
+            lines.append(Line(center.get_edge_center(d), sat.get_edge_center(-d), color=col,
+                              stroke_width=4, stroke_opacity=0.8))
+        for ln in lines:
+            ln.set_z_index(-1)
+        center.set_z_index(2)
+
+        def show_center():
+            self.play(FadeIn(center, scale=0.6), run_time=0.6)
+            self.play(Indicate(center, scale_factor=1.1), run_time=0.5)
+
+        def show_sat(i):
+            def go():
+                self.play(Create(lines[i]), FadeIn(sats[i], scale=0.6), run_time=0.8)
+                self.play(Indicate(sats[i], scale_factor=1.08), run_time=0.5)
+            return go
+
+        acts = {"center": show_center}
+        acts.update({f"n{i}": show_sat(i) for i in range(len(sats))})
+        run_events(self, acts)
+        hold_until_end(self)
+
+
+class AgentLoop(Scene):
+    """The agent loop: Think -> Act -> Observe -> repeat.
+    spec: title, goal, log[] of {stage: think|act|observe, text}.
+    No log:  events think, act, observe, repeat, done          (explains the loop)
+    With log: events l0, l1, l2, ..., done                       (a worked example, one log line per step)"""
+    INFO = {"think": ("Think", "Decide the next step", BLUE),
+            "act": ("Act", "Use a tool", ORANGE),
+            "observe": ("Observe", "Read the result", GREEN)}
+
+    def construct(self):
+        s = spec()
+        log = s.get("log")
+        if s.get("title"):
+            self.add(T(s["title"], font_size=40, color=MIST, weight=BOLD).to_edge(UP, buff=0.6))
+        if log:
+            pos = {"think": LEFT * 5.0 + UP * 0.9, "act": LEFT * 0.9 + UP * 0.9, "observe": LEFT * 2.95 + DOWN * 1.9}
+        else:
+            pos = {"think": LEFT * 3.8 + UP * 0.9, "act": RIGHT * 3.8 + UP * 0.9, "observe": DOWN * 2.0}
+        nodes = {}
+        for key, (name, sub, col) in self.INFO.items():
+            box = RoundedRectangle(corner_radius=0.2, width=2.7, height=1.5, color=col, fill_opacity=0.25)
+            label = T(name, font_size=32, color=MIST, weight=BOLD)
+            hint = T(sub, font_size=20, color=SOFT)
+            txt = VGroup(label, hint).arrange(DOWN, buff=0.12)
+            fit(txt, 2.4).move_to(box)
+            nodes[key] = VGroup(box, txt).scale(1.0 if log else 1.3).move_to(pos[key])
+        arrows = [Arrow(nodes["think"], nodes["act"], buff=0.15, color=MIST, stroke_width=5),
+                  Arrow(nodes["act"], nodes["observe"], buff=0.15, color=MIST, stroke_width=5),
+                  Arrow(nodes["observe"], nodes["think"], buff=0.15, color=MIST, stroke_width=5)]
+        packet = Dot(color=ORANGE, radius=0.18)
+        above = lambda k: nodes[k].get_top() + UP * 0.42
+        state = {"packet_on": False}
+
+        def move_packet(key):
+            if not state["packet_on"]:
+                packet.move_to(above(key))
+                self.play(FadeIn(packet), run_time=0.3)
+                state["packet_on"] = True
+            else:
+                self.play(packet.animate.move_to(above(key)), run_time=0.7)
+
+        if not log:
+            def stage(key, arrow=None):
+                def go():
+                    anims = [FadeIn(nodes[key], scale=0.7)]
+                    if arrow is not None:
+                        anims.append(GrowArrow(arrow))
+                    self.play(*anims, run_time=0.6)
+                    move_packet(key)
+                    self.play(Indicate(nodes[key], scale_factor=1.1), run_time=0.5)
+                return go
+
+            centre = (nodes["think"].get_center() + nodes["act"].get_center() + nodes["observe"].get_center()) / 3
+            texts = {}
+
+            def repeat():
+                self.play(GrowArrow(arrows[2]), run_time=0.6)
+                move_packet("think")
+                texts["r"] = T("Repeat", font_size=38, color=SOFT).move_to(centre + UP * 0.2)
+                self.play(FadeIn(texts["r"]), run_time=0.5)
+
+            def done():
+                finish = T("Goal done", font_size=44, color=GREEN, weight=BOLD).move_to(centre + UP * 0.2)
+                outs = [FadeOut(packet)]
+                if "r" in texts:
+                    outs.append(FadeOut(texts["r"]))
+                self.play(*outs, FadeIn(finish, scale=0.8), run_time=0.8)
+
+            run_events(self, {"think": stage("think"), "act": stage("act", arrows[0]),
+                              "observe": stage("observe", arrows[1]), "repeat": repeat, "done": done})
+        else:
+            self.add(*nodes.values(), *arrows)
+            x0 = 1.15
+            head = T("What the agent does", font_size=24, color=SOFT)
+            head.move_to(RIGHT * x0 + UP * 2.3, aligned_edge=LEFT)
+            goal = T("Goal: " + s.get("goal", ""), font_size=24, color=MIST)
+            fit(goal, 5.7).move_to(RIGHT * x0 + UP * 1.8, aligned_edge=LEFT)
+            self.add(head, goal)
+
+            def step(i, item):
+                def go():
+                    key = item["stage"]
+                    move_packet(key)
+                    name, _, col = self.INFO[key]
+                    line = T(f"{name}: {item['text']}", font_size=21, color=col)
+                    fit(line, 5.7).move_to(RIGHT * x0 + UP * (1.2 - i * 0.46), aligned_edge=LEFT)
+                    self.play(Indicate(nodes[key], scale_factor=1.1), FadeIn(line, shift=RIGHT * 0.2), run_time=0.7)
+                return go
+
+            def done():
+                finish = T(s.get("done_text", "Goal done"), font_size=36, color=GREEN, weight=BOLD)
+                finish.move_to(RIGHT * x0 + DOWN * 3.0, aligned_edge=LEFT)
+                self.play(FadeOut(packet), FadeIn(finish, scale=0.8), run_time=0.8)
+
+            acts = {f"l{i}": step(i, it) for i, it in enumerate(log)}
+            acts["done"] = done
+            run_events(self, acts)
         hold_until_end(self)

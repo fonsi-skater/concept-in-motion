@@ -1,0 +1,32 @@
+TITLE (copy into YouTube Studio)
+What Is Vibe Coding? Build Software with AI
+
+DESCRIPTION (copy everything between the lines)
+----------------------------------------
+What is vibe coding? Learn how people use AI prompts to generate and improve code, see a practical task-list example, and understand why testing, security, and code review still matter.
+
+Chapters
+0:00 What is vibe coding?
+0:24 The basic workflow
+0:49 A practical example
+1:14 Why people use it
+1:38 The hidden risks
+2:03 Use AI responsibly
+2:32 The real takeaway
+
+New concept every week on Concept in Motion. Subscribe, and comment with what you want explained next.
+
+Next video: How the Internet Works
+
+#VibeCoding #ArtificialIntelligence #LearnToCode
+----------------------------------------
+
+TAGS (Show more > Tags)
+what is vibe coding, vibe coding explained, AI coding for beginners, AI software development, AI coding tools, learn programming, responsible AI, tech explained
+
+PLAYLIST: Tech Basics
+CATEGORY: Education
+AUDIENCE: No, it's not made for kids
+VISIBILITY: Private first, then Public after review
+
+FILES: final.mp4 (or final_music.mp4), captions.srt, thumbnail PNG

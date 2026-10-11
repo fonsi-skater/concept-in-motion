@@ -1,0 +1,289 @@
+{
+  "title": "What Is an AI Agent? How AI Agents Work",
+  "scenes": [
+    {
+      "chapter": "Hook",
+      "narration": "You ask a chatbot to set up a meeting, and it writes you a nice message about setting up meetings. But what if it simply set up the meeting? That is the difference between a chatbot and an AI agent. By the end of this video, you will know what an AI agent is, and the loop that makes it work.",
+      "visual": {
+        "type": "title",
+        "title": "What is an AI agent?",
+        "subtitle": "And how it works"
+      }
+    },
+    {
+      "chapter": "Chatbot vs agent",
+      "narration": "A chatbot answers. You ask a question, it writes a reply, and then it waits for you. An AI agent works toward a goal. You tell it what you want done, and it decides the steps, uses tools to take them, checks what happened, and keeps going until the job is finished.",
+      "visual": {
+        "type": "bullets",
+        "title": "Chatbot vs agent",
+        "items": [
+          "A chatbot answers your question",
+          "An agent works toward a goal",
+          "It uses tools to take real steps"
+        ]
+      },
+      "cues": [
+        "A chatbot answers",
+        "An AI agent works toward a goal",
+        "uses tools to take them"
+      ]
+    },
+    {
+      "chapter": "The assistant analogy",
+      "narration": "Think of a capable personal assistant on their first day. You say, set up a meeting with Amina next week. A good assistant does not reply with advice. They check your calendar, check Amina's calendar, pick a time, and send the invite. They plan, act, look at the result, and adjust. An AI agent is software that does the same.",
+      "visual": {
+        "type": "bullets",
+        "title": "The assistant analogy",
+        "items": [
+          "Check your calendar",
+          "Check Amina's calendar",
+          "Pick a time and send the invite"
+        ]
+      },
+      "cues": [
+        "They check your calendar",
+        "check Amina's calendar",
+        "pick a time"
+      ]
+    },
+    {
+      "chapter": "The four parts",
+      "narration": "Every agent has four parts. First, a model, usually a large language model. This is the brain that reads the situation and decides what to do next. Second, tools. These are things the agent can use, like a calendar, a web search, or code it can run. Third, memory. It keeps track of what it has done so far. And fourth, a goal and rules, which say what to achieve and what is off limits.",
+      "visual": {
+        "type": "hub",
+        "title": "The four parts of an agent",
+        "center": "AI agent",
+        "center_color": "orange",
+        "items": [
+          {
+            "label": "Model",
+            "sub": "the brain that decides",
+            "color": "blue"
+          },
+          {
+            "label": "Tools",
+            "sub": "calendar, search, code",
+            "color": "green"
+          },
+          {
+            "label": "Memory",
+            "sub": "what it has done so far",
+            "color": "blue"
+          },
+          {
+            "label": "Goal and rules",
+            "sub": "what to do, what is off limits",
+            "color": "orange"
+          }
+        ]
+      },
+      "cues": {
+        "center": "Every agent has four parts",
+        "n0": "First, a model",
+        "n1": "Second, tools",
+        "n2": "Third, memory",
+        "n3": "fourth, a goal"
+      }
+    },
+    {
+      "chapter": "Tools are APIs",
+      "narration": "Remember the waiter from our API video? Tools work the same way. Each tool is reached through an API. The agent sends a request, reads the answer, and decides what to do next. A calendar tool, a search tool, a code tool, an email tool. The agent can only do what its tools allow.",
+      "visual": {
+        "type": "hub",
+        "title": "Tools are reached through APIs",
+        "center": "AI agent",
+        "center_color": "orange",
+        "items": [
+          {
+            "label": "Calendar",
+            "sub": "through an API",
+            "color": "green"
+          },
+          {
+            "label": "Web search",
+            "sub": "through an API",
+            "color": "green"
+          },
+          {
+            "label": "Code runner",
+            "sub": "through an API",
+            "color": "green"
+          },
+          {
+            "label": "Email",
+            "sub": "through an API",
+            "color": "green"
+          }
+        ]
+      },
+      "cues": {
+        "center": "Remember the waiter",
+        "n0": "A calendar tool",
+        "n1": "a search tool",
+        "n2": "a code tool",
+        "n3": "an email tool"
+      }
+    },
+    {
+      "chapter": "The agent loop",
+      "narration": "Now the important part: the loop. An agent repeats three steps. Think: the model looks at the goal and what has happened so far, and decides the next action. Act: it uses a tool to take that action. Observe: it reads the result and adds it to its memory. Then it loops back to think again. This continues until the goal is done, or until the agent needs to ask you.",
+      "visual": {
+        "type": "agentloop",
+        "title": "The agent loop"
+      },
+      "cues": {
+        "think": "Think: the model",
+        "act": "Act: it uses a tool",
+        "observe": "Observe: it reads",
+        "repeat": "loops back to think",
+        "done": "until the goal is done"
+      }
+    },
+    {
+      "chapter": "A worked example",
+      "narration": "Let's follow a real example. The goal: set up a meeting with Amina next week. Think: I need free times for both of us. Act: it asks the calendar tool for your free times. Observe: Tuesday at ten and Wednesday at two are free. Think: now I need to check Amina's calendar. Act: it asks the calendar tool for Amina's free times. Observe: only Wednesday at two works for both. Think: so book Wednesday at two. Act: it creates and sends the invite. Observe: the invite was sent. The goal is done, and the agent tells you.",
+      "visual": {
+        "type": "agentloop",
+        "title": "A worked example",
+        "goal": "Set up a meeting with Amina next week",
+        "done_text": "Goal done",
+        "log": [
+          {
+            "stage": "think",
+            "text": "I need free times for both of us"
+          },
+          {
+            "stage": "act",
+            "text": "Ask the calendar tool for my times"
+          },
+          {
+            "stage": "observe",
+            "text": "Tue 10:00 and Wed 14:00 are free"
+          },
+          {
+            "stage": "think",
+            "text": "Now check Amina's calendar"
+          },
+          {
+            "stage": "act",
+            "text": "Ask the calendar tool for hers"
+          },
+          {
+            "stage": "observe",
+            "text": "Only Wed 14:00 works for both"
+          },
+          {
+            "stage": "think",
+            "text": "So book Wed 14:00"
+          },
+          {
+            "stage": "act",
+            "text": "Create and send the invite"
+          },
+          {
+            "stage": "observe",
+            "text": "The invite was sent"
+          }
+        ]
+      },
+      "cues": {
+        "l0": "I need free times for both",
+        "l1": "asks the calendar tool for your free times",
+        "l2": "Tuesday at ten",
+        "l3": "now I need to check Amina",
+        "l4": "for Amina's free times",
+        "l5": "only Wednesday at two",
+        "l6": "so book Wednesday",
+        "l7": "creates and sends the invite",
+        "l8": "the invite was sent",
+        "done": "The goal is done"
+      }
+    },
+    {
+      "chapter": "Where agents show up",
+      "narration": "You may already see agents at work. Coding assistants that write code, run it, and fix errors. Support assistants that look up your order and process a refund. Research helpers that search many pages and summarize what they find.",
+      "visual": {
+        "type": "bullets",
+        "title": "Where agents show up",
+        "items": [
+          "Coding assistants that write, run, and fix code",
+          "Support assistants that look up your order",
+          "Research helpers that search and summarize"
+        ]
+      },
+      "cues": [
+        "Coding assistants",
+        "Support assistants",
+        "Research helpers"
+      ]
+    },
+    {
+      "chapter": "Limits and safety",
+      "narration": "Agents are powerful, but they are not magic. They can misunderstand a goal, use a tool the wrong way, or keep going down the wrong path. So well designed agents get only the permissions they need, ask for your approval before risky actions like sending money or deleting files, and keep a log you can check. Treat an agent like a new assistant: helpful, but worth supervising.",
+      "visual": {
+        "type": "bullets",
+        "title": "Limits and safety",
+        "items": [
+          "They can misunderstand or make mistakes",
+          "Give them only the permissions they need",
+          "Approval before risky actions",
+          "Keep a log you can check"
+        ]
+      },
+      "cues": [
+        "misunderstand a goal",
+        "only the permissions they need",
+        "ask for your approval",
+        "keep a log"
+      ]
+    },
+    {
+      "chapter": "Recap",
+      "narration": "Let's recap. One: an agent works toward a goal, not just a reply. Two: it runs a loop of think, act, and observe, using tools and memory. Three: it needs limits and human oversight.",
+      "visual": {
+        "type": "bullets",
+        "title": "Three takeaways",
+        "items": [
+          "An agent works toward a goal",
+          "Loop: think, act, observe, repeat",
+          "It needs limits and human oversight"
+        ]
+      },
+      "cues": [
+        "One:",
+        "Two:",
+        "Three:"
+      ]
+    },
+    {
+      "narration": "The brain of every agent is a large language model. In the next video, we open it up and see how it predicts the next word. If this helped, subscribe, and comment with the concept you want explained next. See you in the next one.",
+      "visual": {
+        "type": "title",
+        "title": "Next: How LLMs predict the next word",
+        "subtitle": "Subscribe so you do not miss it"
+      }
+    }
+  ],
+  "youtube": {
+    "title": "What Is an AI Agent? How AI Agents Work (Simple Explanation)",
+    "summary": "A chatbot answers. An AI agent gets things done. This video explains what an AI agent is, its four parts (model, tools, memory, goal), the think, act, observe loop that drives it, a step-by-step example of booking a meeting, and the limits and safety rules every agent needs.",
+    "tags": [
+      "what is an AI agent",
+      "AI agents explained",
+      "how AI agents work",
+      "agentic AI",
+      "AI agent loop",
+      "AI for beginners",
+      "chatbot vs AI agent",
+      "AI tools explained"
+    ],
+    "hashtags": [
+      "#AIAgents",
+      "#AI",
+      "#AgenticAI"
+    ],
+    "playlist": "AI for Beginners",
+    "category": "Education",
+    "next_video": "How LLMs Predict the Next Word"
+  }
+}
