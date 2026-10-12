@@ -1,7 +1,7 @@
 """Manim scene templates for Concept in Motion  (scenes.py)
 =====================================================================
 Each class below is one VISUAL TYPE you can use in a scenes json file:
-  title, bullets, flow, restaurant, code, tokens, wordmap, pipeline, hub, agentloop
+  title, bullets, flow, restaurant, code, tokens, wordmap, pipeline, hub, agentloop, probbars, genloop
 (the name-to-class table is CLASSES in build.py)
 
 HOW build.py TALKS TO THIS FILE (environment variables set per scene)
@@ -614,4 +614,108 @@ class AgentLoop(Scene):
             acts = {f"l{i}": step(i, it) for i, it in enumerate(log)}
             acts["done"] = done
             run_events(self, acts)
+        hold_until_end(self)
+
+
+# --------------------------------------------------------------------------- LLM next-word templates
+class ProbBars(Scene):
+    """Probabilities for the next word, drawn as bars.
+    spec: title, prompt, bars[] (word, p), more, note, mode (build|pick), pick (a word from bars), temp.
+    build mode events: prompt, b0, b1, b2, ...,  note
+    pick mode (bars already on screen): pick, temp"""
+
+    def construct(self):
+        s = spec()
+        mode = s.get("mode", "build")
+        bars = s.get("bars", [])
+        if s.get("title"):
+            self.add(T(s["title"], font_size=40, color=MIST, weight=BOLD).to_edge(UP, buff=0.6))
+        prompt = T(s.get("prompt", ""), font_size=46, color=MIST)
+        blank = T("?", font_size=46, color=SOFT)
+        head = VGroup(prompt, blank).arrange(RIGHT, buff=0.3).move_to(UP * 1.95)
+        top = max(b["p"] for b in bars) if bars else 1
+        rows = []
+        for i, b in enumerate(bars):
+            y = 0.7 - i * 0.98
+            word = T(b["word"], font_size=38, color=MIST).move_to(LEFT * 2.2 + UP * y, aligned_edge=RIGHT)
+            bar = Rectangle(width=max(b["p"] / top * 5.4, 0.08), height=0.6, fill_color=BLUE, fill_opacity=1,
+                            stroke_width=0).move_to(LEFT * 1.9 + UP * y, aligned_edge=LEFT)
+            pct = T(f"{b['p']}%", font_size=32, color=SOFT).next_to(bar, RIGHT, buff=0.2)
+            rows.append(VGroup(word, bar, pct))
+        extra = T(s.get("more", ""), font_size=26, color=SOFT).move_to(DOWN * 3.0)
+        note = T(s.get("note", ""), font_size=24, color=SOFT).move_to(DOWN * 3.5)
+
+        def show_prompt():
+            self.play(FadeIn(head, shift=DOWN * 0.2), run_time=0.7)
+
+        def show_bar(i):
+            def go():
+                w, bar, pct = rows[i]
+                self.play(FadeIn(w), GrowFromEdge(bar, LEFT), run_time=0.8)
+                self.play(FadeIn(pct), run_time=0.3)
+            return go
+
+        def show_note():
+            self.play(FadeIn(extra), FadeIn(note), run_time=0.6)
+
+        def pick():
+            word = s.get("pick") or bars[0]["word"]
+            idx = [b["word"] for b in bars].index(word)
+            w, bar, pct = rows[idx]
+            chosen = T(word, font_size=46, color=ORANGE).next_to(prompt, RIGHT, buff=0.3)
+            self.play(bar.animate.set_fill(ORANGE), Indicate(w, color=ORANGE), run_time=0.7)
+            self.play(FadeOut(blank), ReplacementTransform(w.copy(), chosen), run_time=0.9)
+
+        def temp():
+            t = T(s.get("temp", "Temperature: low = safe, high = varied"), font_size=30, color=MIST)
+            self.play(FadeIn(t.move_to(DOWN * 3.3), shift=UP * 0.2), run_time=0.7)
+
+        if mode == "build":
+            acts = {"prompt": show_prompt}
+            acts.update({f"b{i}": show_bar(i) for i in range(len(rows))})
+            acts["note"] = show_note
+            run_events(self, acts)
+        else:
+            self.add(head, *rows, extra)
+            run_events(self, {"pick": pick, "temp": temp})
+        hold_until_end(self)
+
+
+class GenLoop(Scene):
+    """A sentence grows one predicted word at a time.
+    spec: title, prompt, words[], label.   events: label, w0, w1, ..."""
+
+    def construct(self):
+        s = spec()
+        words = s.get("words", [])
+        if s.get("title"):
+            self.add(T(s["title"], font_size=40, color=MIST, weight=BOLD).to_edge(UP, buff=0.6))
+        model = make_node("LLM", BLUE, UP * 1.5)
+        model[0].set_width(3.0)
+        model[1].become(T("LLM", font_size=40, color=MIST, weight=BOLD).move_to(model[0]))
+        self.add(model)
+        base = s.get("prompt", "")
+        state = {"cur": T(base, font_size=50, color=MIST).move_to(DOWN * 0.6)}
+        self.add(state["cur"])
+
+        def add_word(i, w):
+            def go():
+                full = base + " " + " ".join(words[:i + 1])
+                start = len(full) - len(w)        # colour only the newest word, keep one baseline for the line
+                new = T(full, font_size=50, color=MIST, t2c={f"[{start}:{len(full)}]": ORANGE}).move_to(DOWN * 0.6)
+                arrow = Arrow(model.get_bottom(), new.get_right() + LEFT * 0.7 + UP * 0.5, buff=0.1,
+                              color=ORANGE, stroke_width=5)
+                self.play(ReplacementTransform(state["cur"], new), GrowArrow(arrow),
+                          Indicate(model, scale_factor=1.12), run_time=0.9)
+                self.play(FadeOut(arrow), run_time=0.3)
+                state["cur"] = new
+            return go
+
+        def label():
+            t = T(s.get("label", "Predict, add, repeat"), font_size=44, color=SOFT, weight=BOLD).move_to(DOWN * 2.3)
+            self.play(FadeIn(t, shift=UP * 0.2), run_time=0.7)
+
+        acts = {"label": label}
+        acts.update({f"w{i}": add_word(i, w) for i, w in enumerate(words)})
+        run_events(self, acts)
         hold_until_end(self)

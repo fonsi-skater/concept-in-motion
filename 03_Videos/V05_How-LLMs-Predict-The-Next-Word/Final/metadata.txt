@@ -1,0 +1,34 @@
+TITLE (copy into YouTube Studio)
+How Do LLMs Predict the Next Word? (Simple Explanation)
+
+DESCRIPTION (copy everything between the lines)
+----------------------------------------
+How can a chatbot write an essay by predicting just one word at a time? This video explains how large language models (LLMs) work: scoring every possible next word, picking one with a little randomness (temperature), repeating the loop, how the model learns by guessing hidden words, why it seems smart, and why it can still be wrong.
+
+Chapters
+0:00 Hook
+0:22 The autocomplete analogy
+0:40 Step 1: Probabilities
+1:08 Step 2: Pick one
+1:26 Step 3: Repeat
+1:44 How it learns
+2:13 Why it seems smart
+2:40 Limits to remember
+3:01 Recap
+
+New concept every week on Concept in Motion. Subscribe, and comment with what you want explained next.
+
+Next video: How a Neural Network Learns
+
+#LLM #AI #MachineLearning
+----------------------------------------
+
+TAGS (Show more > Tags)
+how do LLMs work, LLM explained, predict the next word, large language model, how ChatGPT works, next token prediction, AI for beginners, temperature in LLMs
+
+PLAYLIST: AI for Beginners
+CATEGORY: Education
+AUDIENCE: No, it's not made for kids
+VISIBILITY: Private first, then Public after review
+
+FILES: final.mp4 (or final_music.mp4), captions.srt, thumbnail PNG

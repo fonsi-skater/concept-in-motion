@@ -47,7 +47,8 @@ from pathlib import Path
 ROOT = Path(__file__).parent.resolve()
 CLASSES = {"title": "TitleCard", "bullets": "Bullets", "flow": "Flow", "code": "CodeCard", "restaurant": "Restaurant",
            "tokens": "Tokens", "wordmap": "WordMap", "pipeline": "Pipeline",
-           "hub": "Hub", "agentloop": "AgentLoop"}
+           "hub": "Hub", "agentloop": "AgentLoop",
+           "probbars": "ProbBars", "genloop": "GenLoop"}
 PAD = 0.4  # seconds of silence after each scene
 
 

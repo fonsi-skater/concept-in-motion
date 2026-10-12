@@ -1,0 +1,9 @@
+0:00 Hook
+0:22 The autocomplete analogy
+0:40 Step 1: Probabilities
+1:08 Step 2: Pick one
+1:26 Step 3: Repeat
+1:44 How it learns
+2:13 Why it seems smart
+2:40 Limits to remember
+3:01 Recap

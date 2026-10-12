@@ -1,0 +1,244 @@
+{
+  "title": "How Do LLMs Predict the Next Word?",
+  "scenes": [
+    {
+      "chapter": "Hook",
+      "narration": "Start typing a message on your phone, and it suggests the next word. Now imagine that same idea, scaled up enormously. That is the core of how chatbots write whole essays, one word at a time. By the end of this video, you will understand how a large language model predicts the next word, and why that simple trick is so powerful.",
+      "visual": {
+        "type": "title",
+        "title": "How do LLMs predict the next word?",
+        "subtitle": "One word at a time"
+      }
+    },
+    {
+      "chapter": "The autocomplete analogy",
+      "narration": "Think of your phone's autocomplete. You type, I am running, and it suggests late. An LLM, short for large language model, does the same thing at a much larger scale. It reads everything written so far, and predicts what comes next.",
+      "visual": {
+        "type": "bullets",
+        "title": "The autocomplete analogy",
+        "items": [
+          "Phone autocomplete suggests the next word",
+          "An LLM does it at a huge scale",
+          "It reads the text so far, then predicts"
+        ]
+      },
+      "cues": [
+        "Think of your phone's autocomplete",
+        "does the same thing at a much larger scale",
+        "reads everything written so far"
+      ]
+    },
+    {
+      "chapter": "Step 1: Probabilities",
+      "narration": "Here is the key idea. Given the text so far, the model does not just pick one word. It gives every possible next word a probability. For the sentence, the cat sat on the, the word mat might get a high score, sofa a bit less, floor less again, and a strange word like moon almost nothing. These numbers are only examples. A real model scores tens of thousands of possible tokens at once.",
+      "visual": {
+        "type": "probbars",
+        "title": "Step 1: Score every possible word",
+        "prompt": "The cat sat on the",
+        "bars": [
+          {
+            "word": "mat",
+            "p": 42
+          },
+          {
+            "word": "sofa",
+            "p": 25
+          },
+          {
+            "word": "floor",
+            "p": 16
+          },
+          {
+            "word": "moon",
+            "p": 1
+          }
+        ],
+        "more": "plus thousands of other tokens",
+        "note": "Example numbers only"
+      },
+      "cues": {
+        "prompt": "Given the text so far",
+        "b0": "mat might get a high score",
+        "b1": "sofa a bit less",
+        "b2": "floor less again",
+        "b3": "moon almost nothing",
+        "note": "These numbers are only examples"
+      }
+    },
+    {
+      "chapter": "Step 2: Pick one",
+      "narration": "Then the model picks one. Usually it chooses a likely word, but with some randomness, so the same question can give different answers. A setting called temperature controls this. Low temperature plays it safe. High temperature takes more risks.",
+      "visual": {
+        "type": "probbars",
+        "title": "Step 2: Pick one",
+        "mode": "pick",
+        "prompt": "The cat sat on the",
+        "bars": [
+          {
+            "word": "mat",
+            "p": 42
+          },
+          {
+            "word": "sofa",
+            "p": 25
+          },
+          {
+            "word": "floor",
+            "p": 16
+          },
+          {
+            "word": "moon",
+            "p": 1
+          }
+        ],
+        "pick": "mat",
+        "temp": "Temperature: low = safe, high = varied"
+      },
+      "cues": {
+        "pick": "Then the model picks one",
+        "temp": "A setting called temperature"
+      }
+    },
+    {
+      "chapter": "Step 3: Repeat",
+      "narration": "Now the loop. The model picks a word, adds it to the text, and predicts again using the longer text. Predict, add, repeat. That is how a whole answer is written, one token at a time. Here it adds mat, then purring, then softly.",
+      "visual": {
+        "type": "genloop",
+        "title": "Step 3: Predict, add, repeat",
+        "prompt": "The cat sat on the",
+        "words": [
+          "mat",
+          "purring",
+          "softly"
+        ],
+        "label": "Predict, add, repeat"
+      },
+      "cues": {
+        "label": "Predict, add, repeat",
+        "w0": "adds mat",
+        "w1": "then purring",
+        "w2": "then softly"
+      }
+    },
+    {
+      "chapter": "How it learns",
+      "narration": "How does the model learn to do this? By practice, on a huge amount of text. Take a sentence and hide the next word. The model guesses. We check the guess against the real word. Then the model's internal numbers, called weights, are adjusted a tiny bit, so the right word becomes more likely next time. Repeat this again and again, an enormous number of times, and the model gets very good at predicting.",
+      "visual": {
+        "type": "pipeline",
+        "title": "How it learns",
+        "stages": [
+          {
+            "label": "Hide a word",
+            "color": "orange"
+          },
+          {
+            "label": "Guess",
+            "color": "blue"
+          },
+          {
+            "label": "Check",
+            "color": "blue"
+          },
+          {
+            "label": "Adjust",
+            "color": "green"
+          }
+        ]
+      },
+      "cues": {
+        "s0": "hide the next word",
+        "s1": "The model guesses",
+        "s2": "check the guess",
+        "s3": "adjusted a tiny bit"
+      }
+    },
+    {
+      "chapter": "Why it seems smart",
+      "narration": "Why does such a simple task produce something that seems smart? To predict the next word well across a huge range of text, the model has to pick up grammar, facts, writing styles, and how ideas connect. It also uses a mechanism called attention, to decide which earlier words matter most for the next one. Chatbots then get extra training to follow instructions, but the core is still predicting the next word.",
+      "visual": {
+        "type": "bullets",
+        "title": "Why it seems smart",
+        "items": [
+          "Grammar and writing style",
+          "Facts found in its training text",
+          "How ideas connect",
+          "Attention: which earlier words matter"
+        ]
+      },
+      "cues": [
+        "grammar",
+        "facts, writing styles",
+        "how ideas connect",
+        "called attention"
+      ]
+    },
+    {
+      "chapter": "Limits to remember",
+      "narration": "But remember what it is really doing. It predicts likely text. It does not look facts up by itself, unless it is given a tool to do so, which is exactly what AI agents do, as we saw in our video about agents. So an LLM can sound confident and still be wrong. Check anything important.",
+      "visual": {
+        "type": "bullets",
+        "title": "Limits to remember",
+        "items": [
+          "It predicts likely text",
+          "It does not look facts up by itself",
+          "Confident does not mean correct",
+          "Check anything important"
+        ]
+      },
+      "cues": [
+        "predicts likely text",
+        "look facts up by itself",
+        "confident and still be wrong",
+        "Check anything important"
+      ]
+    },
+    {
+      "chapter": "Recap",
+      "narration": "Let's recap. One: an LLM scores every possible next word. Two: it picks one, adds it to the text, and repeats. Three: it learns by practicing on huge amounts of text, adjusting its weights each time.",
+      "visual": {
+        "type": "bullets",
+        "title": "Three takeaways",
+        "items": [
+          "It scores every possible next word",
+          "It picks one, adds it, and repeats",
+          "It learns by practicing on huge amounts of text"
+        ]
+      },
+      "cues": [
+        "One:",
+        "Two:",
+        "Three:"
+      ]
+    },
+    {
+      "narration": "We mentioned weights being adjusted. In the next video, we look at how a neural network actually learns. If this helped, subscribe, and comment with the concept you want explained next. See you in the next one.",
+      "visual": {
+        "type": "title",
+        "title": "Next: How a neural network learns",
+        "subtitle": "Subscribe so you do not miss it"
+      }
+    }
+  ],
+  "youtube": {
+    "title": "How Do LLMs Predict the Next Word? (Simple Explanation)",
+    "summary": "How can a chatbot write an essay by predicting just one word at a time? This video explains how large language models (LLMs) work: scoring every possible next word, picking one with a little randomness (temperature), repeating the loop, how the model learns by guessing hidden words, why it seems smart, and why it can still be wrong.",
+    "tags": [
+      "how do LLMs work",
+      "LLM explained",
+      "predict the next word",
+      "large language model",
+      "how ChatGPT works",
+      "next token prediction",
+      "AI for beginners",
+      "temperature in LLMs"
+    ],
+    "hashtags": [
+      "#LLM",
+      "#AI",
+      "#MachineLearning"
+    ],
+    "playlist": "AI for Beginners",
+    "category": "Education",
+    "next_video": "How a Neural Network Learns"
+  }
+}

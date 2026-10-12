@@ -1,0 +1,256 @@
+1
+00:00:00,000 --> 00:00:03,179
+Start typing a message on your phone, and it
+
+2
+00:00:03,179 --> 00:00:06,358
+suggests the next word. Now imagine that same idea,
+
+3
+00:00:06,358 --> 00:00:09,537
+scaled up enormously. That is the core of how
+
+4
+00:00:09,537 --> 00:00:12,715
+chatbots write whole essays, one word at a time.
+
+5
+00:00:12,715 --> 00:00:15,894
+By the end of this video, you will understand
+
+6
+00:00:15,894 --> 00:00:19,073
+how a large language model predicts the next word,
+
+7
+00:00:19,073 --> 00:00:21,899
+and why that simple trick is so powerful.
+
+8
+00:00:22,699 --> 00:00:26,341
+Think of your phone's autocomplete. You type, I am
+
+9
+00:00:26,341 --> 00:00:29,983
+running, and it suggests late. An LLM, short for
+
+10
+00:00:29,983 --> 00:00:33,626
+large language model, does the same thing at a
+
+11
+00:00:33,626 --> 00:00:37,268
+much larger scale. It reads everything written so far,
+
+12
+00:00:37,268 --> 00:00:39,292
+and predicts what comes next.
+
+13
+00:00:40,092 --> 00:00:43,465
+Here is the key idea. Given the text so
+
+14
+00:00:43,465 --> 00:00:46,839
+far, the model does not just pick one word.
+
+15
+00:00:46,839 --> 00:00:50,213
+It gives every possible next word a probability. For
+
+16
+00:00:50,213 --> 00:00:53,587
+the sentence, the cat sat on the, the word
+
+17
+00:00:53,587 --> 00:00:56,961
+mat might get a high score, sofa a bit
+
+18
+00:00:56,961 --> 00:01:00,334
+less, floor less again, and a strange word like
+
+19
+00:01:00,334 --> 00:01:03,708
+moon almost nothing. These numbers are only examples. A
+
+20
+00:01:03,708 --> 00:01:07,082
+real model scores tens of thousands of possible tokens
+
+21
+00:01:07,082 --> 00:01:07,832
+at once.
+
+22
+00:01:08,632 --> 00:01:12,563
+Then the model picks one. Usually it chooses a
+
+23
+00:01:12,563 --> 00:01:16,494
+likely word, but with some randomness, so the same
+
+24
+00:01:16,494 --> 00:01:20,425
+question can give different answers. A setting called temperature
+
+25
+00:01:20,425 --> 00:01:24,356
+controls this. Low temperature plays it safe. High temperature
+
+26
+00:01:24,356 --> 00:01:25,667
+takes more risks.
+
+27
+00:01:26,467 --> 00:01:30,046
+Now the loop. The model picks a word, adds
+
+28
+00:01:30,046 --> 00:01:33,626
+it to the text, and predicts again using the
+
+29
+00:01:33,626 --> 00:01:37,205
+longer text. Predict, add, repeat. That is how a
+
+30
+00:01:37,205 --> 00:01:40,784
+whole answer is written, one token at a time.
+
+31
+00:01:40,784 --> 00:01:43,966
+Here it adds mat, then purring, then softly.
+
+32
+00:01:44,766 --> 00:01:48,124
+How does the model learn to do this? By
+
+33
+00:01:48,124 --> 00:01:51,483
+practice, on a huge amount of text. Take a
+
+34
+00:01:51,483 --> 00:01:54,841
+sentence and hide the next word. The model guesses.
+
+35
+00:01:54,841 --> 00:01:58,199
+We check the guess against the real word. Then
+
+36
+00:01:58,199 --> 00:02:01,558
+the model's internal numbers, called weights, are adjusted a
+
+37
+00:02:01,558 --> 00:02:04,916
+tiny bit, so the right word becomes more likely
+
+38
+00:02:04,916 --> 00:02:08,275
+next time. Repeat this again and again, an enormous
+
+39
+00:02:08,275 --> 00:02:11,633
+number of times, and the model gets very good
+
+40
+00:02:11,633 --> 00:02:12,379
+at predicting.
+
+41
+00:02:13,179 --> 00:02:16,469
+Why does such a simple task produce something that
+
+42
+00:02:16,469 --> 00:02:19,760
+seems smart? To predict the next word well across
+
+43
+00:02:19,760 --> 00:02:23,050
+a huge range of text, the model has to
+
+44
+00:02:23,050 --> 00:02:26,340
+pick up grammar, facts, writing styles, and how ideas
+
+45
+00:02:26,340 --> 00:02:29,631
+connect. It also uses a mechanism called attention, to
+
+46
+00:02:29,631 --> 00:02:32,921
+decide which earlier words matter most for the next
+
+47
+00:02:32,921 --> 00:02:36,211
+one. Chatbots then get extra training to follow instructions,
+
+48
+00:02:36,211 --> 00:02:39,501
+but the core is still predicting the next word.
+
+49
+00:02:40,301 --> 00:02:43,644
+But remember what it is really doing. It predicts
+
+50
+00:02:43,644 --> 00:02:46,986
+likely text. It does not look facts up by
+
+51
+00:02:46,986 --> 00:02:50,328
+itself, unless it is given a tool to do
+
+52
+00:02:50,328 --> 00:02:53,671
+so, which is exactly what AI agents do, as
+
+53
+00:02:53,671 --> 00:02:57,013
+we saw in our video about agents. So an
+
+54
+00:02:57,013 --> 00:03:00,355
+LLM can sound confident and still be wrong. Check
+
+55
+00:03:00,355 --> 00:03:01,098
+anything important.
+
+56
+00:03:01,898 --> 00:03:05,849
+Let's recap. One: an LLM scores every possible next
+
+57
+00:03:05,849 --> 00:03:09,800
+word. Two: it picks one, adds it to the
+
+58
+00:03:09,800 --> 00:03:13,750
+text, and repeats. Three: it learns by practicing on
+
+59
+00:03:13,750 --> 00:03:17,701
+huge amounts of text, adjusting its weights each time.
+
+60
+00:03:18,501 --> 00:03:22,100
+We mentioned weights being adjusted. In the next video,
+
+61
+00:03:22,100 --> 00:03:25,698
+we look at how a neural network actually learns.
+
+62
+00:03:25,698 --> 00:03:29,297
+If this helped, subscribe, and comment with the concept
+
+63
+00:03:29,297 --> 00:03:32,895
+you want explained next. See you in the next
+
+64
+00:03:32,895 --> 00:03:33,295
+one.
+

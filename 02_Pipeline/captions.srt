@@ -1,304 +1,256 @@
 1
-00:00:00,000 --> 00:00:02,700
-You ask a chatbot to set up a meeting,
+00:00:00,000 --> 00:00:03,179
+Start typing a message on your phone, and it
 
 2
-00:00:02,700 --> 00:00:05,400
-and it writes you a nice message about setting
+00:00:03,179 --> 00:00:06,358
+suggests the next word. Now imagine that same idea,
 
 3
-00:00:05,400 --> 00:00:08,100
-up meetings. But what if it simply set up
+00:00:06,358 --> 00:00:09,537
+scaled up enormously. That is the core of how
 
 4
-00:00:08,100 --> 00:00:10,800
-the meeting? That is the difference between a chatbot
+00:00:09,537 --> 00:00:12,715
+chatbots write whole essays, one word at a time.
 
 5
-00:00:10,800 --> 00:00:13,500
-and an AI agent. By the end of this
+00:00:12,715 --> 00:00:15,894
+By the end of this video, you will understand
 
 6
-00:00:13,500 --> 00:00:16,200
-video, you will know what an AI agent is,
+00:00:15,894 --> 00:00:19,073
+how a large language model predicts the next word,
 
 7
-00:00:16,200 --> 00:00:18,300
-and the loop that makes it work.
+00:00:19,073 --> 00:00:21,899
+and why that simple trick is so powerful.
 
 8
-00:00:19,100 --> 00:00:22,410
-A chatbot answers. You ask a question, it writes
+00:00:22,699 --> 00:00:26,341
+Think of your phone's autocomplete. You type, I am
 
 9
-00:00:22,410 --> 00:00:25,719
-a reply, and then it waits for you. An
+00:00:26,341 --> 00:00:29,983
+running, and it suggests late. An LLM, short for
 
 10
-00:00:25,719 --> 00:00:29,029
-AI agent works toward a goal. You tell it
+00:00:29,983 --> 00:00:33,626
+large language model, does the same thing at a
 
 11
-00:00:29,029 --> 00:00:32,339
-what you want done, and it decides the steps,
+00:00:33,626 --> 00:00:37,268
+much larger scale. It reads everything written so far,
 
 12
-00:00:32,339 --> 00:00:35,649
-uses tools to take them, checks what happened, and
+00:00:37,268 --> 00:00:39,292
+and predicts what comes next.
 
 13
-00:00:35,649 --> 00:00:38,224
-keeps going until the job is finished.
+00:00:40,092 --> 00:00:43,465
+Here is the key idea. Given the text so
 
 14
-00:00:39,024 --> 00:00:42,453
-Think of a capable personal assistant on their first
+00:00:43,465 --> 00:00:46,839
+far, the model does not just pick one word.
 
 15
-00:00:42,453 --> 00:00:45,883
-day. You say, set up a meeting with Amina
+00:00:46,839 --> 00:00:50,213
+It gives every possible next word a probability. For
 
 16
-00:00:45,883 --> 00:00:49,312
-next week. A good assistant does not reply with
+00:00:50,213 --> 00:00:53,587
+the sentence, the cat sat on the, the word
 
 17
-00:00:49,312 --> 00:00:52,742
-advice. They check your calendar, check Amina's calendar, pick
+00:00:53,587 --> 00:00:56,961
+mat might get a high score, sofa a bit
 
 18
-00:00:52,742 --> 00:00:56,172
-a time, and send the invite. They plan, act,
+00:00:56,961 --> 00:01:00,334
+less, floor less again, and a strange word like
 
 19
-00:00:56,172 --> 00:00:59,601
-look at the result, and adjust. An AI agent
+00:01:00,334 --> 00:01:03,708
+moon almost nothing. These numbers are only examples. A
 
 20
-00:00:59,601 --> 00:01:01,887
-is software that does the same.
+00:01:03,708 --> 00:01:07,082
+real model scores tens of thousands of possible tokens
 
 21
-00:01:02,687 --> 00:01:06,114
-Every agent has four parts. First, a model, usually
+00:01:07,082 --> 00:01:07,832
+at once.
 
 22
-00:01:06,114 --> 00:01:09,541
-a large language model. This is the brain that
+00:01:08,632 --> 00:01:12,563
+Then the model picks one. Usually it chooses a
 
 23
-00:01:09,541 --> 00:01:12,967
-reads the situation and decides what to do next.
+00:01:12,563 --> 00:01:16,494
+likely word, but with some randomness, so the same
 
 24
-00:01:12,967 --> 00:01:16,394
-Second, tools. These are things the agent can use,
+00:01:16,494 --> 00:01:20,425
+question can give different answers. A setting called temperature
 
 25
-00:01:16,394 --> 00:01:19,820
-like a calendar, a web search, or code it
+00:01:20,425 --> 00:01:24,356
+controls this. Low temperature plays it safe. High temperature
 
 26
-00:01:19,820 --> 00:01:23,247
-can run. Third, memory. It keeps track of what
+00:01:24,356 --> 00:01:25,667
+takes more risks.
 
 27
-00:01:23,247 --> 00:01:26,673
-it has done so far. And fourth, a goal
+00:01:26,467 --> 00:01:30,046
+Now the loop. The model picks a word, adds
 
 28
-00:01:26,673 --> 00:01:30,100
-and rules, which say what to achieve and what
+00:01:30,046 --> 00:01:33,626
+it to the text, and predicts again using the
 
 29
-00:01:30,100 --> 00:01:31,242
-is off limits.
+00:01:33,626 --> 00:01:37,205
+longer text. Predict, add, repeat. That is how a
 
 30
-00:01:32,042 --> 00:01:35,583
-Remember the waiter from our API video? Tools work
+00:01:37,205 --> 00:01:40,784
+whole answer is written, one token at a time.
 
 31
-00:01:35,583 --> 00:01:39,125
-the same way. Each tool is reached through an
+00:01:40,784 --> 00:01:43,966
+Here it adds mat, then purring, then softly.
 
 32
-00:01:39,125 --> 00:01:42,667
-API. The agent sends a request, reads the answer,
+00:01:44,766 --> 00:01:48,124
+How does the model learn to do this? By
 
 33
-00:01:42,667 --> 00:01:46,209
-and decides what to do next. A calendar tool,
+00:01:48,124 --> 00:01:51,483
+practice, on a huge amount of text. Take a
 
 34
-00:01:46,209 --> 00:01:49,750
-a search tool, a code tool, an email tool.
+00:01:51,483 --> 00:01:54,841
+sentence and hide the next word. The model guesses.
 
 35
-00:01:49,750 --> 00:01:53,292
-The agent can only do what its tools allow.
+00:01:54,841 --> 00:01:58,199
+We check the guess against the real word. Then
 
 36
-00:01:54,092 --> 00:01:57,388
-Now the important part: the loop. An agent repeats
+00:01:58,199 --> 00:02:01,558
+the model's internal numbers, called weights, are adjusted a
 
 37
-00:01:57,388 --> 00:02:00,683
-three steps. Think: the model looks at the goal
+00:02:01,558 --> 00:02:04,916
+tiny bit, so the right word becomes more likely
 
 38
-00:02:00,683 --> 00:02:03,979
-and what has happened so far, and decides the
+00:02:04,916 --> 00:02:08,275
+next time. Repeat this again and again, an enormous
 
 39
-00:02:03,979 --> 00:02:07,275
-next action. Act: it uses a tool to take
+00:02:08,275 --> 00:02:11,633
+number of times, and the model gets very good
 
 40
-00:02:07,275 --> 00:02:10,570
-that action. Observe: it reads the result and adds
+00:02:11,633 --> 00:02:12,379
+at predicting.
 
 41
-00:02:10,570 --> 00:02:13,866
-it to its memory. Then it loops back to
+00:02:13,179 --> 00:02:16,469
+Why does such a simple task produce something that
 
 42
-00:02:13,866 --> 00:02:17,162
-think again. This continues until the goal is done,
+00:02:16,469 --> 00:02:19,760
+seems smart? To predict the next word well across
 
 43
-00:02:17,162 --> 00:02:20,091
-or until the agent needs to ask you.
+00:02:19,760 --> 00:02:23,050
+a huge range of text, the model has to
 
 44
-00:02:20,891 --> 00:02:24,698
-Let's follow a real example. The goal: set up
+00:02:23,050 --> 00:02:26,340
+pick up grammar, facts, writing styles, and how ideas
 
 45
-00:02:24,698 --> 00:02:28,504
-a meeting with Amina next week. Think: I need
+00:02:26,340 --> 00:02:29,631
+connect. It also uses a mechanism called attention, to
 
 46
-00:02:28,504 --> 00:02:32,311
-free times for both of us. Act: it asks
+00:02:29,631 --> 00:02:32,921
+decide which earlier words matter most for the next
 
 47
-00:02:32,311 --> 00:02:36,118
-the calendar tool for your free times. Observe: Tuesday
+00:02:32,921 --> 00:02:36,211
+one. Chatbots then get extra training to follow instructions,
 
 48
-00:02:36,118 --> 00:02:39,924
-at ten and Wednesday at two are free. Think:
+00:02:36,211 --> 00:02:39,501
+but the core is still predicting the next word.
 
 49
-00:02:39,924 --> 00:02:43,731
-now I need to check Amina's calendar. Act: it
+00:02:40,301 --> 00:02:43,644
+But remember what it is really doing. It predicts
 
 50
-00:02:43,731 --> 00:02:47,537
-asks the calendar tool for Amina's free times. Observe:
+00:02:43,644 --> 00:02:46,986
+likely text. It does not look facts up by
 
 51
-00:02:47,537 --> 00:02:51,344
-only Wednesday at two works for both. Think: so
+00:02:46,986 --> 00:02:50,328
+itself, unless it is given a tool to do
 
 52
-00:02:51,344 --> 00:02:55,151
-book Wednesday at two. Act: it creates and sends
+00:02:50,328 --> 00:02:53,671
+so, which is exactly what AI agents do, as
 
 53
-00:02:55,151 --> 00:02:58,957
-the invite. Observe: the invite was sent. The goal
+00:02:53,671 --> 00:02:57,013
+we saw in our video about agents. So an
 
 54
-00:02:58,957 --> 00:03:01,918
-is done, and the agent tells you.
+00:02:57,013 --> 00:03:00,355
+LLM can sound confident and still be wrong. Check
 
 55
-00:03:02,718 --> 00:03:06,231
-You may already see agents at work. Coding assistants
+00:03:00,355 --> 00:03:01,098
+anything important.
 
 56
-00:03:06,231 --> 00:03:09,744
-that write code, run it, and fix errors. Support
+00:03:01,898 --> 00:03:05,849
+Let's recap. One: an LLM scores every possible next
 
 57
-00:03:09,744 --> 00:03:13,257
-assistants that look up your order and process a
+00:03:05,849 --> 00:03:09,800
+word. Two: it picks one, adds it to the
 
 58
-00:03:13,257 --> 00:03:16,770
-refund. Research helpers that search many pages and summarize
+00:03:09,800 --> 00:03:13,750
+text, and repeats. Three: it learns by practicing on
 
 59
-00:03:16,770 --> 00:03:17,941
-what they find.
+00:03:13,750 --> 00:03:17,701
+huge amounts of text, adjusting its weights each time.
 
 60
-00:03:18,741 --> 00:03:21,880
-Agents are powerful, but they are not magic. They
+00:03:18,501 --> 00:03:22,100
+We mentioned weights being adjusted. In the next video,
 
 61
-00:03:21,880 --> 00:03:25,020
-can misunderstand a goal, use a tool the wrong
+00:03:22,100 --> 00:03:25,698
+we look at how a neural network actually learns.
 
 62
-00:03:25,020 --> 00:03:28,160
-way, or keep going down the wrong path. So
+00:03:25,698 --> 00:03:29,297
+If this helped, subscribe, and comment with the concept
 
 63
-00:03:28,160 --> 00:03:31,300
-well designed agents get only the permissions they need,
+00:03:29,297 --> 00:03:32,895
+you want explained next. See you in the next
 
 64
-00:03:31,300 --> 00:03:34,439
-ask for your approval before risky actions like sending
-
-65
-00:03:34,439 --> 00:03:37,579
-money or deleting files, and keep a log you
-
-66
-00:03:37,579 --> 00:03:40,719
-can check. Treat an agent like a new assistant:
-
-67
-00:03:40,719 --> 00:03:42,114
-helpful, but worth supervising.
-
-68
-00:03:42,914 --> 00:03:46,725
-Let's recap. One: an agent works toward a goal,
-
-69
-00:03:46,725 --> 00:03:50,537
-not just a reply. Two: it runs a loop
-
-70
-00:03:50,537 --> 00:03:54,348
-of think, act, and observe, using tools and memory.
-
-71
-00:03:54,348 --> 00:03:57,313
-Three: it needs limits and human oversight.
-
-72
-00:03:58,113 --> 00:04:01,155
-The brain of every agent is a large language
-
-73
-00:04:01,155 --> 00:04:04,197
-model. In the next video, we open it up
-
-74
-00:04:04,197 --> 00:04:07,240
-and see how it predicts the next word. If
-
-75
-00:04:07,240 --> 00:04:10,282
-this helped, subscribe, and comment with the concept you
-
-76
-00:04:10,282 --> 00:04:13,324
-want explained next. See you in the next one.
+00:03:32,895 --> 00:03:33,295
+one.
 

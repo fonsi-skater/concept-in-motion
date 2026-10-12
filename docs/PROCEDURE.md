@@ -44,6 +44,8 @@ Copy `02_Pipeline\scenes_nlp.json` to `scenes_<topic>.json` and edit it. Each sc
 | `pipeline` | title, stages[] (label, color) | s0, s1, s2, ... |
 | `hub` | title, center, center_color, items[] (label, sub, color), up to 4 | center, n0, n1, n2, n3 (order: left, right, bottom, top) |
 | `agentloop` | title; optional goal, done_text, log[] (stage think/act/observe, text) | no log: think, act, observe, repeat, done. With log: l0, l1, l2, ... and done |
+| `probbars` | title, prompt, bars[] (word, p), more, note; mode build (default) or pick with pick, temp | build: prompt, b0, b1, ..., note. pick: pick, temp |
+| `genloop` | title, prompt, words[], label | label, w0, w1, ... |
 
 **Cues** = phrases copied EXACTLY (letter for letter) from that scene's narration. The visual appears about half a second before the voice says it.
 **Chapters**: put `chapter` on scenes where a new section starts. YouTube needs the first at 0:00, at least 3 chapters, each at least 10 seconds.

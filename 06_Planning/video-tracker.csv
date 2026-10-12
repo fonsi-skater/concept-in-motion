@@ -1,13 +1,13 @@
-﻿Video,Title,Status,Publish date,Link,Notes
-V01,What Is an API? Explained with a Restaurant,Ready to upload,,,scenes.json
-V02,What Is Natural Language Processing (NLP)? Explained Simply,Ready to upload,,,scenes_nlp.json
-V03,What Is an AI Agent? How AI Agents Work,Published,10/11/2026,https://youtu.be/YOUR-VIDEO-ID,scenes_agent.json; 254s; --speed 0.85 --sentence-pause 0.5 --scene-pause 0.8
-V04,How Do LLMs Predict the Next Word?,Idea,,,
-V05,What Is the Cloud?,Idea,,,
-V06,How Passwords and Hashing Work,Idea,,,
-V07,What Is Git and Why Do Developers Need It?,Idea,,,
-V08,What Happens When You Type a URL?,Idea,,,
-V09,How the Internet Works,Idea,,,
-V10,How Does a Neural Network Learn?,Idea,,,
-V11,What Is Vibe Coding?,Idea,,,
-V12,How I Make These Videos for Free,Idea,,,
+﻿"Video","Title","Status","Publish date","Link","Notes"
+"V01","What Is an API? Explained with a Restaurant","Ready to upload","","","scenes.json"
+"V02","What Is Natural Language Processing (NLP)? Explained Simply","Ready to upload","","","scenes_nlp.json"
+"V03","What Is an AI Agent? How AI Agents Work","Published","10/11/2026","https://youtu.be/YOUR-VIDEO-ID","scenes_agent.json; 254s; --speed 0.85 --sentence-pause 0.5 --scene-pause 0.8"
+"V04","How Do LLMs Predict the Next Word?","Idea","","",""
+"V05","What Is the Cloud?","Built, ready to upload","","","scenes_llm.json"
+"V06","How a Neural Network Learns","Idea","","",""
+"V07","What Is Git and Why Do Developers Need It?","Idea","","",""
+"V08","What Happens When You Type a URL?","Idea","","",""
+"V09","How the Internet Works","Idea","","",""
+"V10","What Is the Cloud?","Idea","","",""
+"V11","What Is Vibe Coding?","Idea","","",""
+"V12","How I Make These Videos for Free","Idea","","",""
