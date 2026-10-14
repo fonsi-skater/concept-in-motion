@@ -1,30 +1,32 @@
 TITLE (copy into YouTube Studio)
-How Do LLMs Predict the Next Word? (Simple Explanation)
+How Does a Neural Network Learn? (Simple Explanation)
 
 DESCRIPTION (copy everything between the lines)
 ----------------------------------------
-How can a chatbot write an essay by predicting just one word at a time? This video explains how large language models (LLMs) work: scoring every possible next word, picking one with a little randomness (temperature), repeating the loop, how the model learns by guessing hidden words, why it seems smart, and why it can still be wrong.
+Nobody tells an AI what a cat looks like, so how does it learn? This video explains how a neural network learns, step by step: layers and weights, making a guess, measuring the error, adjusting the weights with backpropagation, why small steps work (gradient descent), and how repeating it over many examples makes the error fall.
 
 Chapters
 0:00 Hook
-0:22 The autocomplete analogy
-0:40 Step 1: Probabilities
-1:08 Step 2: Pick one
-1:26 Step 3: Repeat
-1:44 How it learns
-2:13 Why it seems smart
-2:40 Limits to remember
-3:01 Recap
+0:21 The practice test analogy
+0:38 The structure
+0:59 Step 1: A guess
+1:24 Step 2: Measure the error
+1:42 Step 3: Adjust the weights
+2:02 Why small steps
+2:26 Step 4: Repeat
+2:48 From cats to chatbots
+3:05 Limits
+3:23 Recap
 
 New concept every week on Concept in Motion. Subscribe, and comment with what you want explained next.
 
-Next video: How a Neural Network Learns
+Next video: How Passwords and Hashing Work
 
-#LLM #AI #MachineLearning
+#NeuralNetworks #AI #MachineLearning
 ----------------------------------------
 
 TAGS (Show more > Tags)
-how do LLMs work, LLM explained, predict the next word, large language model, how ChatGPT works, next token prediction, AI for beginners, temperature in LLMs
+how do neural networks learn, neural network explained, backpropagation, gradient descent, weights and biases, machine learning for beginners, deep learning explained, AI for beginners
 
 PLAYLIST: AI for Beginners
 CATEGORY: Education

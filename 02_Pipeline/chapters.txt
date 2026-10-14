@@ -1,9 +1,11 @@
 0:00 Hook
-0:22 The autocomplete analogy
-0:40 Step 1: Probabilities
-1:08 Step 2: Pick one
-1:26 Step 3: Repeat
-1:44 How it learns
-2:13 Why it seems smart
-2:40 Limits to remember
-3:01 Recap
+0:21 The practice test analogy
+0:38 The structure
+0:59 Step 1: A guess
+1:24 Step 2: Measure the error
+1:42 Step 3: Adjust the weights
+2:02 Why small steps
+2:26 Step 4: Repeat
+2:48 From cats to chatbots
+3:05 Limits
+3:23 Recap

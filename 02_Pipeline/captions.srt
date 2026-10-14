@@ -1,256 +1,288 @@
 1
-00:00:00,000 --> 00:00:03,179
-Start typing a message on your phone, and it
+00:00:00,000 --> 00:00:03,589
+Nobody sits down and tells an AI what a
 
 2
-00:00:03,179 --> 00:00:06,358
-suggests the next word. Now imagine that same idea,
+00:00:03,589 --> 00:00:07,179
+cat looks like. No one writes rules for whiskers
 
 3
-00:00:06,358 --> 00:00:09,537
-scaled up enormously. That is the core of how
+00:00:07,179 --> 00:00:10,768
+and ears. So how does it learn to recognize
 
 4
-00:00:09,537 --> 00:00:12,715
-chatbots write whole essays, one word at a time.
+00:00:10,768 --> 00:00:14,357
+one? By practicing, making mistakes, and correcting itself, again
 
 5
-00:00:12,715 --> 00:00:15,894
-By the end of this video, you will understand
+00:00:14,357 --> 00:00:17,947
+and again. By the end of this video, you
 
 6
-00:00:15,894 --> 00:00:19,073
-how a large language model predicts the next word,
+00:00:17,947 --> 00:00:20,739
+will understand how a neural network learns.
 
 7
-00:00:19,073 --> 00:00:21,899
-and why that simple trick is so powerful.
+00:00:21,539 --> 00:00:25,265
+Imagine a student preparing for an exam. They take
 
 8
-00:00:22,699 --> 00:00:26,341
-Think of your phone's autocomplete. You type, I am
+00:00:25,265 --> 00:00:28,992
+a practice test. They check the answers and see
 
 9
-00:00:26,341 --> 00:00:29,983
-running, and it suggests late. An LLM, short for
+00:00:28,992 --> 00:00:32,718
+where they went wrong. Then they adjust how they
 
 10
-00:00:29,983 --> 00:00:33,626
-large language model, does the same thing at a
+00:00:32,718 --> 00:00:36,445
+study. A neural network learns the same way: guess,
 
 11
-00:00:33,626 --> 00:00:37,268
-much larger scale. It reads everything written so far,
+00:00:36,445 --> 00:00:37,273
+check, adjust.
 
 12
-00:00:37,268 --> 00:00:39,292
-and predicts what comes next.
+00:00:38,073 --> 00:00:41,653
+A neural network is made of layers of simple
 
 13
-00:00:40,092 --> 00:00:43,465
-Here is the key idea. Given the text so
+00:00:41,653 --> 00:00:45,233
+units, often called neurons. The first layer takes in
 
 14
-00:00:43,465 --> 00:00:46,839
-far, the model does not just pick one word.
+00:00:45,233 --> 00:00:48,813
+the input, as numbers. The middle layers pass signals
 
 15
-00:00:46,839 --> 00:00:50,213
-It gives every possible next word a probability. For
+00:00:48,813 --> 00:00:52,392
+along. The last layer gives the answer. Every connection
 
 16
-00:00:50,213 --> 00:00:53,587
-the sentence, the cat sat on the, the word
+00:00:52,392 --> 00:00:55,972
+between two units has a weight, a number that
 
 17
-00:00:53,587 --> 00:00:56,961
-mat might get a high score, sofa a bit
+00:00:55,972 --> 00:00:58,359
+says how strong that connection is.
 
 18
-00:00:56,961 --> 00:01:00,334
-less, floor less again, and a strange word like
+00:00:59,159 --> 00:01:02,397
+Step one is a guess. We feed in an
 
 19
-00:01:00,334 --> 00:01:03,708
-moon almost nothing. These numbers are only examples. A
+00:01:02,397 --> 00:01:05,635
+example, such as a photo, turned into numbers. The
 
 20
-00:01:03,708 --> 00:01:07,082
-real model scores tens of thousands of possible tokens
+00:01:05,635 --> 00:01:08,873
+numbers flow through the layers, and each unit multiplies
 
 21
-00:01:07,082 --> 00:01:07,832
-at once.
+00:01:08,873 --> 00:01:12,111
+what it receives by the weights and adds it
 
 22
-00:01:08,632 --> 00:01:12,563
-Then the model picks one. Usually it chooses a
+00:01:12,111 --> 00:01:15,350
+up. At the end, the network gives its guess.
 
 23
-00:01:12,563 --> 00:01:16,494
-likely word, but with some randomness, so the same
+00:01:15,350 --> 00:01:18,588
+At the start of training the weights are random,
 
 24
-00:01:16,494 --> 00:01:20,425
-question can give different answers. A setting called temperature
+00:01:18,588 --> 00:01:21,826
+so the guess is usually wrong. Here, thirty percent
 
 25
-00:01:20,425 --> 00:01:24,356
-controls this. Low temperature plays it safe. High temperature
+00:01:21,826 --> 00:01:23,625
+cat and seventy percent dog.
 
 26
-00:01:24,356 --> 00:01:25,667
-takes more risks.
+00:01:24,425 --> 00:01:27,440
+Step two is to measure the error. We know
 
 27
-00:01:26,467 --> 00:01:30,046
-Now the loop. The model picks a word, adds
+00:01:27,440 --> 00:01:30,454
+the right answer, because the example comes with a
 
 28
-00:01:30,046 --> 00:01:33,626
-it to the text, and predicts again using the
+00:01:30,454 --> 00:01:33,469
+label: this is a cat. So we can calculate
 
 29
-00:01:33,626 --> 00:01:37,205
-longer text. Predict, add, repeat. That is how a
+00:01:33,469 --> 00:01:36,484
+a number that says how wrong the guess was.
 
 30
-00:01:37,205 --> 00:01:40,784
-whole answer is written, one token at a time.
+00:01:36,484 --> 00:01:39,498
+This number is called the loss, or the error.
 
 31
-00:01:40,784 --> 00:01:43,966
-Here it adds mat, then purring, then softly.
+00:01:39,498 --> 00:01:41,843
+A big error means a bad guess.
 
 32
-00:01:44,766 --> 00:01:48,124
-How does the model learn to do this? By
+00:01:42,643 --> 00:01:46,027
+Step three is to adjust. Using a method called
 
 33
-00:01:48,124 --> 00:01:51,483
-practice, on a huge amount of text. Take a
+00:01:46,027 --> 00:01:49,411
+backpropagation, the network works backwards from the error and
 
 34
-00:01:51,483 --> 00:01:54,841
-sentence and hide the next word. The model guesses.
+00:01:49,411 --> 00:01:52,796
+figures out how much each weight contributed to the
 
 35
-00:01:54,841 --> 00:01:58,199
-We check the guess against the real word. Then
+00:01:52,796 --> 00:01:56,180
+mistake. Then each weight is nudged a little, in
 
 36
-00:01:58,199 --> 00:02:01,558
-the model's internal numbers, called weights, are adjusted a
+00:01:56,180 --> 00:01:59,564
+the direction that makes the error smaller. After one
 
 37
-00:02:01,558 --> 00:02:04,916
-tiny bit, so the right word becomes more likely
+00:01:59,564 --> 00:02:02,196
+nudge, the guess is only slightly better.
 
 38
-00:02:04,916 --> 00:02:08,275
-next time. Repeat this again and again, an enormous
+00:02:02,996 --> 00:02:06,153
+Why only a small nudge? Imagine walking down a
 
 39
-00:02:08,275 --> 00:02:11,633
-number of times, and the model gets very good
+00:02:06,153 --> 00:02:09,310
+foggy hill. You cannot see the bottom, but you
 
 40
-00:02:11,633 --> 00:02:12,379
-at predicting.
+00:02:09,310 --> 00:02:12,466
+can feel which way the ground slopes. So you
 
 41
-00:02:13,179 --> 00:02:16,469
-Why does such a simple task produce something that
+00:02:12,466 --> 00:02:15,623
+take a small step downhill, and repeat. The network
 
 42
-00:02:16,469 --> 00:02:19,760
-seems smart? To predict the next word well across
+00:02:15,623 --> 00:02:18,779
+does the same, where the height of the hill
 
 43
-00:02:19,760 --> 00:02:23,050
-a huge range of text, the model has to
+00:02:18,779 --> 00:02:21,936
+is the error. This method is called gradient descent.
 
 44
-00:02:23,050 --> 00:02:26,340
-pick up grammar, facts, writing styles, and how ideas
+00:02:21,936 --> 00:02:25,092
+The size of each step is called the learning
 
 45
-00:02:26,340 --> 00:02:29,631
-connect. It also uses a mechanism called attention, to
+00:02:25,092 --> 00:02:25,443
+rate.
 
 46
-00:02:29,631 --> 00:02:32,921
-decide which earlier words matter most for the next
+00:02:26,243 --> 00:02:29,827
+Now repeat. Show the network another example, guess, measure
 
 47
-00:02:32,921 --> 00:02:36,211
-one. Chatbots then get extra training to follow instructions,
+00:02:29,827 --> 00:02:33,411
+the error, and nudge the weights. Do this with
 
 48
-00:02:36,211 --> 00:02:39,501
-but the core is still predicting the next word.
+00:02:33,411 --> 00:02:36,994
+thousands or millions of examples, and the error slowly
 
 49
-00:02:40,301 --> 00:02:43,644
-But remember what it is really doing. It predicts
+00:02:36,994 --> 00:02:40,578
+falls. The network is not memorizing one picture. It
 
 50
-00:02:43,644 --> 00:02:46,986
-likely text. It does not look facts up by
+00:02:40,578 --> 00:02:44,162
+is finding patterns that work across many. To check,
 
 51
-00:02:46,986 --> 00:02:50,328
-itself, unless it is given a tool to do
+00:02:44,162 --> 00:02:47,745
+we test it on new examples it has never
 
 52
-00:02:50,328 --> 00:02:53,671
-so, which is exactly what AI agents do, as
+00:02:47,745 --> 00:02:48,143
+seen.
 
 53
-00:02:53,671 --> 00:02:57,013
-we saw in our video about agents. So an
+00:02:48,943 --> 00:02:52,528
+This is the same learning loop behind large language
 
 54
-00:02:57,013 --> 00:03:00,355
-LLM can sound confident and still be wrong. Check
+00:02:52,528 --> 00:02:56,112
+models. An image model guesses a label. A language
 
 55
-00:03:00,355 --> 00:03:01,098
-anything important.
+00:02:56,112 --> 00:02:59,697
+model guesses the next word. Both are neural networks,
 
 56
-00:03:01,898 --> 00:03:05,849
-Let's recap. One: an LLM scores every possible next
+00:02:59,697 --> 00:03:03,282
+with up to billions of weights, doing the same
 
 57
-00:03:05,849 --> 00:03:09,800
-word. Two: it picks one, adds it to the
+00:03:03,282 --> 00:03:04,875
+thing: guess, check, adjust.
 
 58
-00:03:09,800 --> 00:03:13,750
-text, and repeats. Three: it learns by practicing on
+00:03:05,675 --> 00:03:08,994
+Neural networks are powerful, but they have limits. They
 
 59
-00:03:13,750 --> 00:03:17,701
-huge amounts of text, adjusting its weights each time.
+00:03:08,994 --> 00:03:12,314
+need a lot of examples. They can learn unfair
 
 60
-00:03:18,501 --> 00:03:22,100
-We mentioned weights being adjusted. In the next video,
+00:03:12,314 --> 00:03:15,634
+patterns that are hidden in their data. And it
 
 61
-00:03:22,100 --> 00:03:25,698
-we look at how a neural network actually learns.
+00:03:15,634 --> 00:03:18,953
+is hard to explain exactly why a network gave
 
 62
-00:03:25,698 --> 00:03:29,297
-If this helped, subscribe, and comment with the concept
+00:03:18,953 --> 00:03:22,273
+a particular answer, because the knowledge is spread across
 
 63
-00:03:29,297 --> 00:03:32,895
-you want explained next. See you in the next
+00:03:22,273 --> 00:03:23,011
+many weights.
 
 64
-00:03:32,895 --> 00:03:33,295
-one.
+00:03:23,811 --> 00:03:27,599
+Let's recap. One: a network is layers of units
+
+65
+00:03:27,599 --> 00:03:31,387
+connected by weights. Two: it learns by guessing, measuring
+
+66
+00:03:31,387 --> 00:03:35,176
+the error, and nudging the weights. Three: it repeats
+
+67
+00:03:35,176 --> 00:03:38,964
+this over many examples until the error is small.
+
+68
+00:03:39,764 --> 00:03:43,174
+Next time, we switch to security. How can a
+
+69
+00:03:43,174 --> 00:03:46,584
+website check your password without keeping a copy of
+
+70
+00:03:46,584 --> 00:03:49,995
+it? If this helped, subscribe, and comment with the
+
+71
+00:03:49,995 --> 00:03:53,405
+concept you want explained next. See you in the
+
+72
+00:03:53,405 --> 00:03:54,163
+next one.
 

@@ -1,0 +1,8 @@
+0:00 Passwords and the security problem
+0:19 Why plain text is dangerous
+0:39 What is hashing?
+1:04 A developer's example
+1:29 How login verification works
+1:53 Salts and safe algorithms
+2:20 Protecting real accounts
+2:45 The key takeaway

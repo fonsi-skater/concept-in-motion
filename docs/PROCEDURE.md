@@ -46,8 +46,11 @@ Copy `02_Pipeline\scenes_nlp.json` to `scenes_<topic>.json` and edit it. Each sc
 | `agentloop` | title; optional goal, done_text, log[] (stage think/act/observe, text) | no log: think, act, observe, repeat, done. With log: l0, l1, l2, ... and done |
 | `probbars` | title, prompt, bars[] (word, p), more, note; mode build (default) or pick with pick, temp | build: prompt, b0, b1, ..., note. pick: pick, temp |
 | `genloop` | title, prompt, words[], label | label, w0, w1, ... |
+| `neuralnet` | title, layers[], input_label, outputs[], guess[], after[], error_text, pre[] (nodes, weights, lit, guess, error) | input, hidden, output, weights, signal, answer, error, adjust, done |
+| `descent` | title | valley, ball, steps, label, name, rate |
+| `losscurve` | title | axes, curve, test |
 
-**Cues** = phrases copied EXACTLY (letter for letter) from that scene's narration. The visual appears about half a second before the voice says it.
+**Cues** = phrases copied EXACTLY (letter for letter) from that scene's narration. The visual appears about half a second before the voice says it. If a scene lists cues, only the cued events run, so a template can offer more events than a scene uses; with no cues at all, events are spread evenly.
 **Chapters**: put `chapter` on scenes where a new section starts. YouTube needs the first at 0:00, at least 3 chapters, each at least 10 seconds.
 **Need a visual that does not exist?** Ask your AI assistant to add a template (see the header of `scenes.py`), or draw it as a simple `title`/`bullets` scene.
 **Upload text**: edit the `"youtube"` block at the bottom (title, summary, tags, hashtags, playlist, next_video).

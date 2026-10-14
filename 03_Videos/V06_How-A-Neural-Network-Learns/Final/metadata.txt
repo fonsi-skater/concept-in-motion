@@ -1,0 +1,36 @@
+TITLE (copy into YouTube Studio)
+How Does a Neural Network Learn? (Simple Explanation)
+
+DESCRIPTION (copy everything between the lines)
+----------------------------------------
+Nobody tells an AI what a cat looks like, so how does it learn? This video explains how a neural network learns, step by step: layers and weights, making a guess, measuring the error, adjusting the weights with backpropagation, why small steps work (gradient descent), and how repeating it over many examples makes the error fall.
+
+Chapters
+0:00 Hook
+0:21 The practice test analogy
+0:38 The structure
+0:59 Step 1: A guess
+1:24 Step 2: Measure the error
+1:42 Step 3: Adjust the weights
+2:02 Why small steps
+2:26 Step 4: Repeat
+2:48 From cats to chatbots
+3:05 Limits
+3:23 Recap
+
+New concept every week on Concept in Motion. Subscribe, and comment with what you want explained next.
+
+Next video: How Passwords and Hashing Work
+
+#NeuralNetworks #AI #MachineLearning
+----------------------------------------
+
+TAGS (Show more > Tags)
+how do neural networks learn, neural network explained, backpropagation, gradient descent, weights and biases, machine learning for beginners, deep learning explained, AI for beginners
+
+PLAYLIST: AI for Beginners
+CATEGORY: Education
+AUDIENCE: No, it's not made for kids
+VISIBILITY: Private first, then Public after review
+
+FILES: final.mp4 (or final_music.mp4), captions.srt, thumbnail PNG

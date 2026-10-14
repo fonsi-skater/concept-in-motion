@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<defs><radialGradient id="bg" cx="25%" cy="45%" r="80%"><stop offset="0" stop-color="#1B2A47"/><stop offset="1" stop-color="#0E1320"/></radialGradient></defs>
+<rect width="1280" height="720" fill="url(#bg)"/>
+<text x="70" y="290" font-family="Poppins" font-weight="800" font-size="170" fill="#EAF0FA">HOW AI</text>
+<text x="70" y="460" font-family="Poppins" font-weight="800" font-size="161" fill="#F39C12">LEARNS?</text>
+<text x="76" y="545" font-family="Poppins" font-weight="500" font-size="48" fill="#8FB6E8">Neural networks, step by step</text>
+<rect x="860" y="70" width="330" height="110" rx="24" fill="#F39C12" fill-opacity="0.28" stroke="#F39C12" stroke-width="6"/><text x="1025" y="141" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="46" fill="#EAF0FA">Guess</text><line x1="1025" y1="184" x2="1025" y2="246" stroke="#EAF0FA" stroke-width="7" stroke-linecap="round"/><polygon points="1005,236 1045,236 1025,266" fill="#EAF0FA"/><rect x="860" y="272" width="330" height="110" rx="24" fill="#2E86DE" fill-opacity="0.28" stroke="#2E86DE" stroke-width="6"/><text x="1025" y="343" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="46" fill="#EAF0FA">Check</text><line x1="1025" y1="386" x2="1025" y2="448" stroke="#EAF0FA" stroke-width="7" stroke-linecap="round"/><polygon points="1005,438 1045,438 1025,468" fill="#EAF0FA"/><rect x="860" y="474" width="330" height="110" rx="24" fill="#27AE60" fill-opacity="0.28" stroke="#27AE60" stroke-width="6"/><text x="1025" y="545" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="46" fill="#EAF0FA">Adjust</text>
+</svg>

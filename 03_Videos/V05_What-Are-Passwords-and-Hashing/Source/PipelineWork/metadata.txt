@@ -1,0 +1,33 @@
+TITLE (copy into YouTube Studio)
+What Are Passwords and How Does Hashing Work? | Cybersecurity Basics
+
+DESCRIPTION (copy everything between the lines)
+----------------------------------------
+Learn how password hashing works, why websites should not store passwords as plain text, how login verification uses stored hashes, and why salts and dedicated algorithms such as Argon2id and bcrypt matter.
+
+Chapters
+0:00 Passwords and the security problem
+0:19 Why plain text is dangerous
+0:39 What is hashing?
+1:04 A developer's example
+1:29 How login verification works
+1:53 Salts and safe algorithms
+2:20 Protecting real accounts
+2:45 The key takeaway
+
+New concept every week on Concept in Motion. Subscribe, and comment with what you want explained next.
+
+Next video: What Happens When You Type a URL?
+
+#PasswordSecurity #Cybersecurity #LearnProgramming
+----------------------------------------
+
+TAGS (Show more > Tags)
+password hashing, what is hashing, password security, how passwords work, cybersecurity for beginners, Argon2id, bcrypt, salted password hashes, JavaScript backend, web development, learn programming, tech explained, Concept in Motion
+
+PLAYLIST: Tech Basics
+CATEGORY: Education
+AUDIENCE: No, it's not made for kids
+VISIBILITY: Private first, then Public after review
+
+FILES: final.mp4 (or final_music.mp4), captions.srt, thumbnail PNG

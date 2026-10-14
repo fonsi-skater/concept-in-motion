@@ -35,6 +35,7 @@ This folder is the whole channel: branding, the video-making pipeline, scripts, 
 | V02 | What Is Natural Language Processing (NLP)? Explained Simply | `02_Pipeline/scenes_nlp.json` |
 | V03 | What Is an AI Agent? How AI Agents Work | `02_Pipeline/scenes_agent.json` |
 | V05 | How Do LLMs Predict the Next Word? | `02_Pipeline/scenes_llm.json` |
+| V06 | How Does a Neural Network Learn? | `02_Pipeline/scenes_nn.json` |
 
 ## Brand rules
 Blue = data/API, orange = user/packet, green = server, dark navy background, Poppins font, "CM" monogram.

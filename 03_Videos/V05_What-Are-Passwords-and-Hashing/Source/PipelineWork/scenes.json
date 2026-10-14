@@ -1,0 +1,163 @@
+{
+  "title": "What Are Passwords and How Does Hashing Work?",
+  "scenes": [
+    {
+      "chapter": "Passwords and the security problem",
+      "narration": "Every time you log in to a website, you trust it to handle your password safely. But what happens if someone breaks into that website's database? The answer depends partly on how the website stores your password. In this video, we'll explore password hashing, see how it works, and learn how developers protect login systems.",
+      "visual": {
+        "type": "title",
+        "title": "Passwords and Hashing",
+        "subtitle": "How websites protect your login"
+      }
+    },
+    {
+      "chapter": "Why plain text is dangerous",
+      "narration": "Imagine a website storing every password as plain text. If a database leak exposes those records, attackers can read them directly. The damage can spread when people reuse the same password on other websites. Secure systems should never need to keep your original password in a readable form just to verify your next login.",
+      "visual": {
+        "type": "bullets",
+        "title": "The danger of plain text",
+        "items": [
+          "Passwords stored as plain text",
+          "A database leak exposes records",
+          "Attackers read them directly",
+          "People reuse the same password"
+        ]
+      },
+      "cues": [
+        "plain text",
+        "database leak",
+        "read them directly",
+        "same password"
+      ]
+    },
+    {
+      "chapter": "What is hashing?",
+      "narration": "A hash function takes input and produces a fixed-length output. The same input produces the same result for the same hash settings, while different inputs will usually produce different results. A properly designed cryptographic hash is intended to be one-way: you cannot simply reverse the output to recover the original password. But ordinary fast hashes alone are not enough for secure password storage.",
+      "visual": {
+        "type": "bullets",
+        "title": "How hashing works",
+        "items": [
+          "Input becomes a fixed-length output",
+          "The same input gives the same result",
+          "Different inputs usually give different results",
+          "You cannot simply reverse the output"
+        ]
+      },
+      "cues": [
+        "fixed-length output",
+        "same input",
+        "different inputs",
+        "cannot simply reverse"
+      ]
+    },
+    {
+      "chapter": "A developer's example",
+      "narration": "Here is a simplified JavaScript example using the Argon2 library in a server environment. First, the application receives a password. The library creates a password hash with a salt and the required settings. The output is what the application stores in its database, rather than the original password. This is illustrative code; it requires the appropriate library and server-side setup.",
+      "visual": {
+        "type": "code",
+        "title": "Hash a password with Argon2",
+        "code": "const storedHash = await argon2.hash(password);\\n\\nawait argon2.verify(storedHash, candidatePassword);",
+        "output": "Store the encoded hash, not the password"
+      },
+      "cues": [
+        "output"
+      ]
+    },
+    {
+      "chapter": "How login verification works",
+      "narration": "What happens when you return and log in? The server receives the candidate password you entered and uses the password-hashing library to check it against the stored hash. The library uses the salt and parameters recorded with that hash. It does not decrypt the stored hash. If the check succeeds, access is granted; if it fails, the application rejects the login.",
+      "visual": {
+        "type": "bullets",
+        "title": "Checking a login",
+        "items": [
+          "The library does not decrypt the hash",
+          "It checks the candidate password",
+          "It uses the stored hash and its settings",
+          "Access is granted only after a match"
+        ]
+      },
+      "cues": [
+        "does not decrypt",
+        "candidate password",
+        "stored hash",
+        "access is granted"
+      ]
+    },
+    {
+      "chapter": "Salts and safe algorithms",
+      "narration": "Secure password storage needs more than a basic hash. A unique salt helps ensure that identical passwords do not produce identical stored values. Password-hashing algorithms are deliberately slow by design, making large-scale guessing more expensive. Developers commonly choose Argon2id or bcrypt, depending on their system and requirements. They should never use SHA-256 alone as their password-storage method.",
+      "visual": {
+        "type": "bullets",
+        "title": "Better password storage",
+        "items": [
+          "Give each password a unique salt",
+          "Use hashing that is slow by design",
+          "Choose Argon2id or bcrypt appropriately",
+          "Never use SHA-256 alone for passwords"
+        ]
+      },
+      "cues": [
+        "unique salt",
+        "slow by design",
+        "Argon2id or bcrypt",
+        "SHA-256 alone"
+      ]
+    },
+    {
+      "chapter": "Protecting real accounts",
+      "narration": "Hashing is important, but it is only one layer of security. Encourage users to create long unique passwords and keep them in a trusted password manager. Add multi-factor authentication where possible. On the server, apply rate limits, monitor suspicious login attempts, protect secrets, and keep software updated. Security comes from several layers working together, not from one clever function.",
+      "visual": {
+        "type": "bullets",
+        "title": "Protect real accounts",
+        "items": [
+          "Use long unique passwords",
+          "Use a trusted password manager",
+          "Enable multi-factor authentication",
+          "Apply rate limits to login attempts"
+        ]
+      },
+      "cues": [
+        "long unique passwords",
+        "password manager",
+        "multi-factor authentication",
+        "rate limits"
+      ]
+    },
+    {
+      "chapter": "The key takeaway",
+      "narration": "Let's recap. Password hashing helps websites verify passwords without storing the original text. Salts and dedicated password-hashing algorithms make stolen password databases harder to attack, although no method guarantees perfect security. If you are learning backend development, understanding this process is an essential step toward building safer applications. Subscribe to Concept in Motion for more technology explained simply.",
+      "visual": {
+        "type": "title",
+        "title": "Hash it. Verify it. Protect it.",
+        "subtitle": "Concept in Motion | Tech Basics"
+      }
+    }
+  ],
+  "youtube": {
+    "title": "What Are Passwords and How Does Hashing Work? | Cybersecurity Basics",
+    "summary": "Learn how password hashing works, why websites should not store passwords as plain text, how login verification uses stored hashes, and why salts and dedicated algorithms such as Argon2id and bcrypt matter.",
+    "tags": [
+      "password hashing",
+      "what is hashing",
+      "password security",
+      "how passwords work",
+      "cybersecurity for beginners",
+      "Argon2id",
+      "bcrypt",
+      "salted password hashes",
+      "JavaScript backend",
+      "web development",
+      "learn programming",
+      "tech explained",
+      "Concept in Motion"
+    ],
+    "hashtags": [
+      "#PasswordSecurity",
+      "#Cybersecurity",
+      "#LearnProgramming"
+    ],
+    "playlist": "Tech Basics",
+    "category": "Education",
+    "next_video": "What Happens When You Type a URL?"
+  }
+}

@@ -1,14 +1,15 @@
 """Manim scene templates for Concept in Motion  (scenes.py)
 =====================================================================
 Each class below is one VISUAL TYPE you can use in a scenes json file:
-  title, bullets, flow, restaurant, code, tokens, wordmap, pipeline, hub, agentloop, probbars, genloop
+  title, bullets, flow, restaurant, code, tokens, wordmap, pipeline, hub, agentloop, probbars, genloop, neuralnet, descent, losscurve
 (the name-to-class table is CLASSES in build.py)
 
 HOW build.py TALKS TO THIS FILE (environment variables set per scene)
   SCENE_SPEC     JSON of the scene's "visual" block from the scenes file
   SCENE_DURATION seconds of narration, so the animation can fill the audio exactly
   SCENE_CUES     JSON {event_name: seconds}, already shifted earlier so each visual lands
-                 just BEFORE the words that name it
+                 just BEFORE the words that name it. If a scene lists cues, ONLY the cued events run
+                 (a template may offer more events than a scene uses). With no cues at all, events spread evenly.
 
 HOW TO ADD A NEW VISUAL TYPE (e.g. "sorting")
   1. Write a class that extends Scene, read settings with spec(), and put each timed step in a
@@ -72,8 +73,11 @@ def at(scene, t):
 
 
 def run_events(scene, actions):
-    """actions: {name: function}. Each runs at its cue time; a missing cue is spread evenly."""
+    """actions: {name: function}. Each runs at its cue time. If a scene has NO cues at all, every event is spread evenly.
+    If a scene has cues, only the events that have a cue run (so a template can offer more events than a scene uses)."""
     c, names, timed = cues(), list(actions), []
+    if c:                                   # a scene that lists cues runs ONLY those events
+        names = [n for n in names if n in c]
     for i, name in enumerate(names):
         t = c.get(name, total() * (0.08 + 0.75 * i / max(len(names), 1)))
         timed.append((t, i, name))
@@ -718,4 +722,180 @@ class GenLoop(Scene):
         acts = {"label": label}
         acts.update({f"w{i}": add_word(i, w) for i, w in enumerate(words)})
         run_events(self, acts)
+        hold_until_end(self)
+
+
+# --------------------------------------------------------------------------- neural-network templates
+class NeuralNet(Scene):
+    """A layered network: signal flows forward, error flows back, weights change.
+    spec: title, layers[] (default 3,4,4,2), input_label, outputs[], guess[], after[], error_text,
+          pre[] = things already on screen: nodes, weights, lit, guess, error
+    events: input, hidden, output, weights, signal, answer, error, adjust, done"""
+
+    def construct(self):
+        import random
+        rng = random.Random(7)
+        s = spec()
+        sizes = s.get("layers", [3, 4, 4, 2])
+        outputs = s.get("outputs", ["cat", "dog"])
+        guess = s.get("guess", ["cat 30%", "dog 70%"])
+        after = s.get("after", ["cat 45%", "dog 55%"])
+        pre = set(s.get("pre", []))
+        if s.get("title"):
+            self.add(T(s["title"], font_size=40, color=MIST, weight=BOLD).to_edge(UP, buff=0.6))
+        xs = np.linspace(-3.4, 3.0, len(sizes))
+        layers = []
+        for x, k in zip(xs, sizes):
+            layer = VGroup(*[Circle(radius=0.3, stroke_color=BLUE, stroke_width=4, fill_color="#1B2438",
+                                    fill_opacity=1).move_to(RIGHT * x + UP * (((k - 1) / 2 - j) * 1.1 - 0.1))
+                             for j in range(k)])
+            layers.append(layer)
+        for layer in layers:
+            layer.set_z_index(2)
+        lines, widths = [], []
+        for a, b in zip(layers[:-1], layers[1:]):
+            for na in a:
+                for nb in b:
+                    w = rng.uniform(0.15, 1.0)
+                    ln = Line(na.get_center(), nb.get_center(), color=MIST, stroke_width=1.2 + 4.5 * w,
+                              stroke_opacity=0.2 + 0.6 * w)
+                    ln.set_z_index(0)
+                    lines.append(ln)
+        lines = VGroup(*lines)
+        in_label = T(s.get("input_label", "Photo of a cat"), font_size=24, color=SOFT)
+        in_label.next_to(layers[0], LEFT, buff=0.5)
+        out_names = [T(o, font_size=34, color=MIST).next_to(n, RIGHT, buff=0.4) for o, n in zip(outputs, layers[-1])]
+        out_guess = [T(g, font_size=34, color=MIST).next_to(n, RIGHT, buff=0.4) for g, n in zip(guess, layers[-1])]
+        out_after = [T(g, font_size=34, color=GREEN).next_to(n, RIGHT, buff=0.4) for g, n in zip(after, layers[-1])]
+        state = {"out": out_guess if "guess" in pre else out_names}
+        note_pos = DOWN * 3.1
+
+        if "nodes" in pre:
+            self.add(*layers, in_label, *state["out"])
+        if "weights" in pre:
+            self.add(lines)
+        if "lit" in pre:
+            for layer in layers:
+                layer.set_fill(ORANGE, 1)
+        if "guess" in pre and "nodes" not in pre:
+            self.add(*state["out"])
+        if "error" in pre:
+            self.add(T(s.get("error_text", "Label: cat. The guess was wrong"), font_size=30, color=ORANGE).move_to(note_pos))
+
+        def show_input():
+            self.play(LaggedStart(*[FadeIn(n, scale=0.5) for n in layers[0]], lag_ratio=0.2), FadeIn(in_label), run_time=1.0)
+
+        def show_hidden():
+            mids = [n for layer in layers[1:-1] for n in layer]
+            self.play(LaggedStart(*[FadeIn(n, scale=0.5) for n in mids], lag_ratio=0.08), run_time=1.3)
+
+        def show_output():
+            self.play(LaggedStart(*[FadeIn(n, scale=0.5) for n in layers[-1]], lag_ratio=0.2),
+                      *[FadeIn(t) for t in state["out"]], run_time=1.0)
+
+        def show_weights():
+            self.play(Create(lines, lag_ratio=0.02), run_time=1.6)
+            self.play(FadeIn(T("Thicker line = stronger weight", font_size=28, color=SOFT).move_to(note_pos)), run_time=0.6)
+
+        def signal():
+            for layer in layers:
+                self.play(*[n.animate.set_fill(ORANGE, 1) for n in layer], run_time=0.45)
+
+        def answer():
+            self.play(*[ReplacementTransform(a, b) for a, b in zip(state["out"], out_guess)], run_time=0.8)
+            state["out"] = out_guess
+
+        def error():
+            t = T(s.get("error_text", "Label: cat. The guess was wrong"), font_size=30, color=ORANGE).move_to(note_pos)
+            self.play(FadeIn(t, shift=UP * 0.2), run_time=0.7)
+
+        def adjust():
+            self.play(LaggedStart(*[AnimationGroup(*[n.animate.set_fill(GREEN, 1) for n in layer])
+                                    for layer in reversed(layers)], lag_ratio=0.6), run_time=1.8)
+            anims = [ln.animate.set_stroke(width=1.2 + 4.5 * rng.uniform(0.15, 1.0), opacity=0.2 + 0.6 * rng.uniform(0.2, 1))
+                     for ln in lines]
+            anims += [n.animate.set_fill("#1B2438", 1) for layer in layers for n in layer]
+            self.play(*anims, run_time=1.2)
+
+        def done():
+            self.play(*[ReplacementTransform(a, b) for a, b in zip(state["out"], out_after)], run_time=0.8)
+            state["out"] = out_after
+
+        run_events(self, {"input": show_input, "hidden": show_hidden, "output": show_output, "weights": show_weights,
+                          "signal": signal, "answer": answer, "error": error, "adjust": adjust, "done": done})
+        hold_until_end(self)
+
+
+class Descent(Scene):
+    """A ball rolls down a valley in shrinking steps (gradient descent).
+    events: valley, ball, steps, label, name, rate"""
+
+    def construct(self):
+        s = spec()
+        if s.get("title"):
+            self.add(T(s["title"], font_size=40, color=MIST, weight=BOLD).to_edge(UP, buff=0.6))
+        f = lambda x: 0.17 * x ** 2 - 2.1
+        curve = ParametricFunction(lambda t: np.array([t, f(t), 0]), t_range=[-5.2, 5.2], color=SOFT, stroke_width=6)
+        pt = lambda x: np.array([x, f(x) + 0.27, 0])
+        ball = Dot(radius=0.26, color=ORANGE).move_to(pt(-4.5))
+        stops = [-4.5, -3.3, -2.3, -1.5, -0.9, -0.45, -0.1]
+
+        def valley():
+            self.play(Create(curve), run_time=1.4)
+
+        def show_ball():
+            self.play(FadeIn(ball, scale=0.5), run_time=0.5)
+
+        def steps():
+            for a, b in zip(stops[:-1], stops[1:]):
+                mark = Dot(radius=0.07, color=MIST).move_to(np.array([a, f(a) + 0.05, 0]))
+                self.play(FadeIn(mark), ball.animate.move_to(pt(b)), run_time=0.55)
+
+        def label():
+            self.play(FadeIn(T("Height = error", font_size=32, color=ORANGE).move_to(UP * 1.5)), run_time=0.6)
+
+        def name():
+            self.play(FadeIn(T("Gradient descent", font_size=36, color=MIST, weight=BOLD).move_to(DOWN * 2.9)), run_time=0.7)
+
+        def rate():
+            self.play(FadeIn(T("Step size = learning rate", font_size=30, color=SOFT).move_to(DOWN * 3.5)), run_time=0.7)
+
+        run_events(self, {"valley": valley, "ball": show_ball, "steps": steps, "label": label, "name": name, "rate": rate})
+        hold_until_end(self)
+
+
+class LossCurve(Scene):
+    """Error falling over practice rounds.   events: axes, curve, test"""
+
+    def construct(self):
+        import random
+        rng = random.Random(3)
+        s = spec()
+        if s.get("title"):
+            self.add(T(s["title"], font_size=40, color=MIST, weight=BOLD).to_edge(UP, buff=0.6))
+        x0, y0 = -5.0, -2.2
+        xaxis = Arrow(np.array([x0, y0, 0]), np.array([5.6, y0, 0]), buff=0, color=MIST, stroke_width=4)
+        yaxis = Arrow(np.array([x0, y0, 0]), np.array([x0, 2.4, 0]), buff=0, color=MIST, stroke_width=4)
+        xl = T("Practice rounds", font_size=28, color=SOFT).next_to(xaxis, DOWN, buff=0.2)
+        yl = T("Error", font_size=28, color=SOFT).next_to(yaxis, UP, buff=0.15)
+        pts = []
+        for i in range(61):
+            t = i / 60
+            err = 0.1 + 0.95 * np.exp(-3.4 * t) + rng.uniform(-0.04, 0.04) * (1 - t * 0.6)
+            pts.append(np.array([x0 + 0.3 + t * 10.0, y0 + 0.2 + 3.1 * err, 0]))
+        curve = VMobject(color=GREEN, stroke_width=6).set_points_smoothly(pts)
+        dot = Dot(radius=0.16, color=ORANGE).move_to(pts[0])
+
+        def axes():
+            self.play(Create(xaxis), Create(yaxis), FadeIn(xl), FadeIn(yl), run_time=1.0)
+
+        def draw():
+            self.add(dot)
+            self.play(Create(curve), MoveAlongPath(dot, curve), run_time=3.0, rate_func=linear)
+
+        def test():
+            self.play(FadeIn(T("Then test on new examples it has never seen", font_size=30, color=GREEN).move_to(UP * 2.1 + RIGHT * 0.8)),
+                      run_time=0.8)
+
+        run_events(self, {"axes": axes, "curve": draw, "test": test})
         hold_until_end(self)

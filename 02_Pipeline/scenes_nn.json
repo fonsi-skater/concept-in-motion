@@ -1,0 +1,213 @@
+{
+  "title": "How Does a Neural Network Learn?",
+  "scenes": [
+    {
+      "chapter": "Hook",
+      "narration": "Nobody sits down and tells an AI what a cat looks like. No one writes rules for whiskers and ears. So how does it learn to recognize one? By practicing, making mistakes, and correcting itself, again and again. By the end of this video, you will understand how a neural network learns.",
+      "visual": {
+        "type": "title",
+        "title": "How does a neural network learn?",
+        "subtitle": "Nobody tells it what a cat looks like"
+      }
+    },
+    {
+      "chapter": "The practice test analogy",
+      "narration": "Imagine a student preparing for an exam. They take a practice test. They check the answers and see where they went wrong. Then they adjust how they study. A neural network learns the same way: guess, check, adjust.",
+      "visual": {
+        "type": "bullets",
+        "title": "The practice test analogy",
+        "items": [
+          "Take a practice test",
+          "Check the answers",
+          "Adjust how you study"
+        ]
+      },
+      "cues": [
+        "take a practice test",
+        "check the answers",
+        "adjust how they study"
+      ]
+    },
+    {
+      "chapter": "The structure",
+      "narration": "A neural network is made of layers of simple units, often called neurons. The first layer takes in the input, as numbers. The middle layers pass signals along. The last layer gives the answer. Every connection between two units has a weight, a number that says how strong that connection is.",
+      "visual": {
+        "type": "neuralnet",
+        "title": "The structure"
+      },
+      "cues": {
+        "input": "The first layer takes in the input",
+        "hidden": "The middle layers pass signals along",
+        "output": "The last layer gives the answer",
+        "weights": "has a weight"
+      }
+    },
+    {
+      "chapter": "Step 1: A guess",
+      "narration": "Step one is a guess. We feed in an example, such as a photo, turned into numbers. The numbers flow through the layers, and each unit multiplies what it receives by the weights and adds it up. At the end, the network gives its guess. At the start of training the weights are random, so the guess is usually wrong. Here, thirty percent cat and seventy percent dog.",
+      "visual": {
+        "type": "neuralnet",
+        "title": "Step 1: Make a guess",
+        "pre": [
+          "nodes",
+          "weights"
+        ]
+      },
+      "cues": {
+        "signal": "The numbers flow through the layers",
+        "answer": "gives its guess"
+      }
+    },
+    {
+      "chapter": "Step 2: Measure the error",
+      "narration": "Step two is to measure the error. We know the right answer, because the example comes with a label: this is a cat. So we can calculate a number that says how wrong the guess was. This number is called the loss, or the error. A big error means a bad guess.",
+      "visual": {
+        "type": "neuralnet",
+        "title": "Step 2: Measure the error",
+        "pre": [
+          "nodes",
+          "weights",
+          "lit",
+          "guess"
+        ],
+        "error_text": "Label: cat. The guess was wrong"
+      },
+      "cues": {
+        "error": "We know the right answer"
+      }
+    },
+    {
+      "chapter": "Step 3: Adjust the weights",
+      "narration": "Step three is to adjust. Using a method called backpropagation, the network works backwards from the error and figures out how much each weight contributed to the mistake. Then each weight is nudged a little, in the direction that makes the error smaller. After one nudge, the guess is only slightly better.",
+      "visual": {
+        "type": "neuralnet",
+        "title": "Step 3: Adjust the weights",
+        "pre": [
+          "nodes",
+          "weights",
+          "lit",
+          "guess",
+          "error"
+        ],
+        "error_text": "Label: cat. The guess was wrong"
+      },
+      "cues": {
+        "adjust": "works backwards from the error",
+        "done": "only slightly better"
+      }
+    },
+    {
+      "chapter": "Why small steps",
+      "narration": "Why only a small nudge? Imagine walking down a foggy hill. You cannot see the bottom, but you can feel which way the ground slopes. So you take a small step downhill, and repeat. The network does the same, where the height of the hill is the error. This method is called gradient descent. The size of each step is called the learning rate.",
+      "visual": {
+        "type": "descent",
+        "title": "Why small steps"
+      },
+      "cues": {
+        "valley": "foggy hill",
+        "ball": "feel which way the ground slopes",
+        "steps": "take a small step downhill",
+        "label": "the height of the hill is the error",
+        "name": "gradient descent",
+        "rate": "called the learning rate"
+      }
+    },
+    {
+      "chapter": "Step 4: Repeat",
+      "narration": "Now repeat. Show the network another example, guess, measure the error, and nudge the weights. Do this with thousands or millions of examples, and the error slowly falls. The network is not memorizing one picture. It is finding patterns that work across many. To check, we test it on new examples it has never seen.",
+      "visual": {
+        "type": "losscurve",
+        "title": "Step 4: Repeat"
+      },
+      "cues": {
+        "axes": "Now repeat",
+        "curve": "the error slowly falls",
+        "test": "test it on new examples"
+      }
+    },
+    {
+      "chapter": "From cats to chatbots",
+      "narration": "This is the same learning loop behind large language models. An image model guesses a label. A language model guesses the next word. Both are neural networks, with up to billions of weights, doing the same thing: guess, check, adjust.",
+      "visual": {
+        "type": "bullets",
+        "title": "From cats to chatbots",
+        "items": [
+          "Image model: guesses a label",
+          "Language model: guesses the next word",
+          "Same loop: guess, check, adjust"
+        ]
+      },
+      "cues": [
+        "An image model guesses",
+        "A language model guesses",
+        "doing the same thing"
+      ]
+    },
+    {
+      "chapter": "Limits",
+      "narration": "Neural networks are powerful, but they have limits. They need a lot of examples. They can learn unfair patterns that are hidden in their data. And it is hard to explain exactly why a network gave a particular answer, because the knowledge is spread across many weights.",
+      "visual": {
+        "type": "bullets",
+        "title": "Limits",
+        "items": [
+          "Needs a lot of examples",
+          "Can learn unfair patterns from data",
+          "Hard to explain a single answer"
+        ]
+      },
+      "cues": [
+        "need a lot of examples",
+        "unfair patterns",
+        "hard to explain"
+      ]
+    },
+    {
+      "chapter": "Recap",
+      "narration": "Let's recap. One: a network is layers of units connected by weights. Two: it learns by guessing, measuring the error, and nudging the weights. Three: it repeats this over many examples until the error is small.",
+      "visual": {
+        "type": "bullets",
+        "title": "Three takeaways",
+        "items": [
+          "Layers of units, connected by weights",
+          "Guess, measure the error, nudge the weights",
+          "Repeat over many examples"
+        ]
+      },
+      "cues": [
+        "One:",
+        "Two:",
+        "Three:"
+      ]
+    },
+    {
+      "narration": "Next time, we switch to security. How can a website check your password without keeping a copy of it? If this helped, subscribe, and comment with the concept you want explained next. See you in the next one.",
+      "visual": {
+        "type": "title",
+        "title": "Next: How passwords and hashing work",
+        "subtitle": "Subscribe so you do not miss it"
+      }
+    }
+  ],
+  "youtube": {
+    "title": "How Does a Neural Network Learn? (Simple Explanation)",
+    "summary": "Nobody tells an AI what a cat looks like, so how does it learn? This video explains how a neural network learns, step by step: layers and weights, making a guess, measuring the error, adjusting the weights with backpropagation, why small steps work (gradient descent), and how repeating it over many examples makes the error fall.",
+    "tags": [
+      "how do neural networks learn",
+      "neural network explained",
+      "backpropagation",
+      "gradient descent",
+      "weights and biases",
+      "machine learning for beginners",
+      "deep learning explained",
+      "AI for beginners"
+    ],
+    "hashtags": [
+      "#NeuralNetworks",
+      "#AI",
+      "#MachineLearning"
+    ],
+    "playlist": "AI for Beginners",
+    "category": "Education",
+    "next_video": "How Passwords and Hashing Work"
+  }
+}

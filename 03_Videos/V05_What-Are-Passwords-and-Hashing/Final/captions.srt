@@ -1,0 +1,220 @@
+1
+00:00:00,000 --> 00:00:03,155
+Every time you log in to a website, you
+
+2
+00:00:03,155 --> 00:00:06,310
+trust it to handle your password safely. But what
+
+3
+00:00:06,310 --> 00:00:09,465
+happens if someone breaks into that website's database? The
+
+4
+00:00:09,465 --> 00:00:12,620
+answer depends partly on how the website stores your
+
+5
+00:00:12,620 --> 00:00:15,775
+password. In this video, we'll explore password hashing, see
+
+6
+00:00:15,775 --> 00:00:18,930
+how it works, and learn how developers protect login
+
+7
+00:00:18,930 --> 00:00:19,280
+systems.
+
+8
+00:00:19,680 --> 00:00:22,965
+Imagine a website storing every password as plain text.
+
+9
+00:00:22,965 --> 00:00:26,250
+If a database leak exposes those records, attackers can
+
+10
+00:00:26,250 --> 00:00:29,535
+read them directly. The damage can spread when people
+
+11
+00:00:29,535 --> 00:00:32,820
+reuse the same password on other websites. Secure systems
+
+12
+00:00:32,820 --> 00:00:36,105
+should never need to keep your original password in
+
+13
+00:00:36,105 --> 00:00:39,390
+a readable form just to verify your next login.
+
+14
+00:00:39,790 --> 00:00:43,198
+A hash function takes input and produces a fixed-length
+
+15
+00:00:43,198 --> 00:00:46,606
+output. The same input produces the same result for
+
+16
+00:00:46,606 --> 00:00:50,014
+the same hash settings, while different inputs will usually
+
+17
+00:00:50,014 --> 00:00:53,422
+produce different results. A properly designed cryptographic hash is
+
+18
+00:00:53,422 --> 00:00:56,830
+intended to be one-way: you cannot simply reverse the
+
+19
+00:00:56,830 --> 00:01:00,237
+output to recover the original password. But ordinary fast
+
+20
+00:01:00,237 --> 00:01:03,645
+hashes alone are not enough for secure password storage.
+
+21
+00:01:04,045 --> 00:01:07,857
+Here is a simplified JavaScript example using the Argon2
+
+22
+00:01:07,857 --> 00:01:11,669
+library in a server environment. First, the application receives
+
+23
+00:01:11,669 --> 00:01:15,481
+a password. The library creates a password hash with
+
+24
+00:01:15,481 --> 00:01:19,293
+a salt and the required settings. The output is
+
+25
+00:01:19,293 --> 00:01:23,105
+what the application stores in its database, rather than
+
+26
+00:01:23,105 --> 00:01:26,917
+the original password. This is illustrative code; it requires
+
+27
+00:01:26,917 --> 00:01:29,458
+the appropriate library and server-side setup.
+
+28
+00:01:29,858 --> 00:01:33,301
+What happens when you return and log in? The
+
+29
+00:01:33,301 --> 00:01:36,744
+server receives the candidate password you entered and uses
+
+30
+00:01:36,744 --> 00:01:40,187
+the password-hashing library to check it against the stored
+
+31
+00:01:40,187 --> 00:01:43,630
+hash. The library uses the salt and parameters recorded
+
+32
+00:01:43,630 --> 00:01:47,073
+with that hash. It does not decrypt the stored
+
+33
+00:01:47,073 --> 00:01:50,516
+hash. If the check succeeds, access is granted; if
+
+34
+00:01:50,516 --> 00:01:53,193
+it fails, the application rejects the login.
+
+35
+00:01:53,593 --> 00:01:57,734
+Secure password storage needs more than a basic hash.
+
+36
+00:01:57,734 --> 00:02:01,875
+A unique salt helps ensure that identical passwords do
+
+37
+00:02:01,875 --> 00:02:06,016
+not produce identical stored values. Password-hashing algorithms are deliberately
+
+38
+00:02:06,016 --> 00:02:10,157
+slow by design, making large-scale guessing more expensive. Developers
+
+39
+00:02:10,157 --> 00:02:14,298
+commonly choose Argon2id or bcrypt, depending on their system
+
+40
+00:02:14,298 --> 00:02:18,439
+and requirements. They should never use SHA-256 alone as
+
+41
+00:02:18,439 --> 00:02:19,819
+their password-storage method.
+
+42
+00:02:20,219 --> 00:02:23,979
+Hashing is important, but it is only one layer
+
+43
+00:02:23,979 --> 00:02:27,739
+of security. Encourage users to create long unique passwords
+
+44
+00:02:27,739 --> 00:02:31,498
+and keep them in a trusted password manager. Add
+
+45
+00:02:31,498 --> 00:02:35,258
+multi-factor authentication where possible. On the server, apply rate
+
+46
+00:02:35,258 --> 00:02:39,018
+limits, monitor suspicious login attempts, protect secrets, and keep
+
+47
+00:02:39,018 --> 00:02:42,777
+software updated. Security comes from several layers working together,
+
+48
+00:02:42,777 --> 00:02:44,866
+not from one clever function.
+
+49
+00:02:45,266 --> 00:02:49,467
+Let's recap. Password hashing helps websites verify passwords without
+
+50
+00:02:49,467 --> 00:02:53,668
+storing the original text. Salts and dedicated password-hashing algorithms
+
+51
+00:02:53,668 --> 00:02:57,869
+make stolen password databases harder to attack, although no
+
+52
+00:02:57,869 --> 00:03:02,070
+method guarantees perfect security. If you are learning backend
+
+53
+00:03:02,070 --> 00:03:06,271
+development, understanding this process is an essential step toward
+
+54
+00:03:06,271 --> 00:03:10,472
+building safer applications. Subscribe to Concept in Motion for
+
+55
+00:03:10,472 --> 00:03:12,340
+more technology explained simply.
+
