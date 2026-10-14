@@ -20,12 +20,23 @@ HOW IT WORKS (read this if something breaks)
      ffmpeg, and captions.srt / chapters.txt / metadata.txt are written next to the pipeline.
 
 COMMANDS (run inside 02_Pipeline)
-  python build.py scenes_nlp.json --preview --voice en_US-lessac-medium     fast 480p draft
-  python build.py scenes_nlp.json --voice en_US-lessac-medium               final 1080p
-  add  --speed 0.85 --sentence-pause 0.5 --scene-pause 0.8                  slower narration
-  add  --only 4                                                             one scene only
-  add  --lead 0.8                                                           visuals earlier (0.2 = later)
-  python build.py scenes_nlp.json --metadata-only                           rewrite metadata.txt only
+  python build.py scenes_nn.json --check                                     instant script check (seconds), no rendering
+  python build.py scenes_nn.json --voice en_US-lessac-medium --speed 0.85 --sentence-pause 0.5 --scene-pause 0.8
+                                                                             THE standard final build (no preview needed)
+  add  --jobs 3                                                              render 3 scenes at once (default: half your cores, max 3)
+  add  --only 4                                                              one scene only
+  add  --lead 0.8                                                            visuals earlier (0.2 = later)
+  add  --no-normalize                                                        skip the final loudness levelling
+  add  --preview                                                             optional fast 480p draft
+  python build.py scenes_nn.json --metadata-only                             rewrite metadata.txt only
+
+WHAT EVERY BUILD DOES FOR QUALITY
+  * Script check first: unknown visual types, cue phrases that are not in the narration, chapter rules.
+    A mistake stops the build in seconds instead of 20 minutes into a render.
+  * Scenes render in parallel (--jobs), each in its own folder so they never collide.
+  * The finished audio is levelled to about -16 LUFS (even loudness for YouTube). Video is not re-encoded.
+  * A scene may hold at its end with  "pause": 10  (seconds), e.g. the last scene, so YouTube's end screen has room.
+  * The "youtube" block may include  "sources": ["Name - https://link", ...]  which is added to the description.
 
 IMPORTANT
   * A build OVERWRITES final.mp4, captions.srt, chapters.txt, metadata.txt in this folder.
@@ -40,8 +51,10 @@ import argparse
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).parent.resolve()
@@ -73,7 +86,7 @@ def find_recorded(n):
     return None
 
 
-def make_audio(n, text, voice, out_wav, speed=1.0, sentence_pause=0.2):
+def make_audio(n, text, voice, out_wav, speed=1.0, sentence_pause=0.2, pad=0.4):
     """Use your recording if present, otherwise Piper text-to-speech."""
     src = find_recorded(n)
     if src is None:
@@ -88,7 +101,7 @@ def make_audio(n, text, voice, out_wav, speed=1.0, sentence_pause=0.2):
     else:
         tempo = f"atempo={speed:.3f}," if abs(speed - 1.0) > 0.01 else ""   # slow a recording, keep pitch
     run(["ffmpeg", "-y", "-loglevel", "error", "-i", src, "-ar", "44100", "-ac", "1",
-         "-af", f"{tempo}apad=pad_dur={PAD}", out_wav])
+         "-af", f"{tempo}apad=pad_dur={pad}", out_wav])
 
 
 def weight(text, upto):
@@ -120,7 +133,8 @@ def render_visual(n, visual, seconds, preview, cue_map):
     env = dict(os.environ, SCENE_SPEC=json.dumps(visual), SCENE_DURATION=f"{seconds:.3f}",
                SCENE_CUES=json.dumps(cue_map))
     res, fps = ("854,480", "15") if preview else ("1920,1080", "30")
-    media = ROOT / "build" / "media"
+    media = ROOT / "build" / f"media_{n:02d}"          # one private folder per scene, so renders never collide
+    shutil.rmtree(media, ignore_errors=True)
     run([sys.executable, "-m", "manim", "render", "-r", res, "--fps", fps,
          "--media_dir", media, "--disable_caching", "--progress_bar", "none", "-o", f"scene_{n:02d}",
          ROOT / "scenes.py", CLASSES[kind]], env=env,
@@ -154,6 +168,36 @@ def caption_chunks(text, max_words=9):
     return chunks
 
 
+def validate(data):
+    """Instant script check. Catches mistakes in seconds instead of after a 20-minute render."""
+    problems = []
+    scenes = data.get("scenes", [])
+    if not scenes:
+        problems.append("no scenes found")
+    for n, sc in enumerate(scenes, start=1):
+        v = sc.get("visual", {})
+        kind = v.get("type")
+        narr = sc.get("narration", "")
+        if kind not in CLASSES:
+            problems.append(f"Scene {n}: unknown visual type '{kind}' (use one of {list(CLASSES)})")
+        if not narr.strip():
+            problems.append(f"Scene {n}: narration is empty")
+        cues = sc.get("cues")
+        if cues:
+            items = list(cues.items()) if isinstance(cues, dict) else list(enumerate(cues))
+            for k, phrase in items:
+                if phrase.lower() not in narr.lower():
+                    problems.append(f"Scene {n}: cue '{k}' phrase not found in the narration: '{phrase}'")
+            if kind == "bullets" and isinstance(cues, list) and len(cues) != len(v.get("items", [])):
+                problems.append(f"Scene {n}: {len(cues)} cue phrases but {len(v.get('items', []))} bullets")
+    chapters = [sc for sc in scenes if sc.get("chapter")]
+    if chapters and not scenes[0].get("chapter"):
+        problems.append("the first scene needs a 'chapter' (YouTube chapters must start at 0:00)")
+    if 0 < len(chapters) < 3:
+        problems.append("YouTube needs at least 3 chapters (add 'chapter' to more scenes)")
+    return problems
+
+
 def read_chapters():
     p = ROOT / "chapters.txt"
     return p.read_text(encoding="utf-8").strip() if p.exists() else ""
@@ -182,7 +226,8 @@ def write_metadata(data):
     chapters = read_chapters()
     if not chapters:
         sys.exit("chapters.txt not found. Run a full build first.")
-    description = (f"{yt['summary']}\n\nChapters\n{chapters}\n\n"
+    sources = ("Sources and further reading\n" + "\n".join(yt["sources"]) + "\n\n") if yt.get("sources") else ""
+    description = (f"{yt['summary']}\n\nChapters\n{chapters}\n\n{sources}"
                    "New concept every week on Concept in Motion. Subscribe, and comment with what you want explained next.\n\n"
                    f"Next video: {yt.get('next_video', 'coming soon')}\n\n{' '.join(yt.get('hashtags', []))}")
     tags = ", ".join(yt.get("tags", []))
@@ -209,61 +254,102 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("scenes")
     ap.add_argument("--voice", help="Piper voice name, e.g. en_US-lessac-medium")
-    ap.add_argument("--preview", action="store_true", help="480p draft, much faster")
+    ap.add_argument("--preview", action="store_true", help="480p draft, much faster (optional)")
     ap.add_argument("--only", type=int, help="render just this scene number")
     ap.add_argument("--speed", type=float, default=1.0,
                     help="narration speed: 1.0 normal, 0.85 = 15%% slower (recommended for beginners), 0.75 = much slower")
     ap.add_argument("--sentence-pause", type=float, default=0.2,
                     help="seconds of silence between sentences with a Piper voice (try 0.5)")
     ap.add_argument("--scene-pause", type=float, default=0.4,
-                    help="seconds of silence after each scene (try 0.8)")
+                    help="seconds of silence after each scene (try 0.8). A scene can override it with a 'pause' field.")
     ap.add_argument("--lead", type=float, default=0.5, help="seconds a visual appears BEFORE the words (default 0.5)")
+    ap.add_argument("--jobs", type=int, default=max(1, min(3, (os.cpu_count() or 2) // 2)),
+                    help="scenes rendered at the same time (default: half your CPU cores, max 3). More is faster but uses more memory.")
+    ap.add_argument("--no-normalize", action="store_true", help="skip the final loudness levelling")
+    ap.add_argument("--check", action="store_true", help="only check the scenes file (instant) and stop")
     ap.add_argument("--metadata-only", action="store_true", help="only write metadata.txt from the existing chapters.txt")
     args = ap.parse_args()
 
-    global PAD
-    PAD = args.scene_pause
     if not 0.5 <= args.speed <= 1.5:
         sys.exit("--speed must be between 0.5 and 1.5")
     data = json.loads(Path(args.scenes).read_text(encoding="utf-8"))
+    problems = validate(data)
+    if problems:
+        print("SCRIPT CHECK FAILED. Fix these in the scenes file, then run again:")
+        for p in problems:
+            print("  -", p)
+        sys.exit(1)
+    words = sum(len(sc["narration"].split()) for sc in data["scenes"])
+    est = words / (175 * args.speed)   # calibrated from real builds: about 175 words per minute at speed 1.0
+    print(f"Script check OK: {len(data['scenes'])} scenes, {words} words, about {est:.1f} minutes of narration at speed {args.speed}.")
+    if args.check:
+        return
     if args.metadata_only:
         write_metadata(data)
         return
+
     build = ROOT / "build"
     build.mkdir(exist_ok=True)
     suffix = "_preview" if args.preview else ""
-    clips, srt, chapters, t = [], [], [], 0.0
+    todo = [(n, sc) for n, sc in enumerate(data["scenes"], start=1) if not args.only or n == args.only]
 
-    for n, scene in enumerate(data["scenes"], start=1):
-        if args.only and n != args.only:
-            continue
-        print(f"\n=== Scene {n}: {scene['narration'][:50]}...")
+    # PHASE 1 (sequential, quick): narration audio, its length, and the cue times
+    plan = []
+    for n, sc in todo:
+        pad = float(sc.get("pause", args.scene_pause))
+        print(f"\n=== Scene {n}/{len(data['scenes'])}: {sc['narration'][:50]}...")
         wav = build / f"audio_{n:02d}.wav"
-        make_audio(n, scene["narration"], args.voice, wav, args.speed, args.sentence_pause)
+        make_audio(n, sc["narration"], args.voice, wav, args.speed, args.sentence_pause, pad)
         seconds = duration(wav)
-        cue_map = cue_times(n, scene["narration"], scene.get("cues"), max(seconds - PAD, 0.5), args.lead)
-        video = render_visual(n, scene["visual"], seconds, args.preview, cue_map)
-        clip = build / f"clip_{n:02d}{suffix}.mp4"
-        mux(video, wav, seconds, clip)
-        clips.append(clip)
+        speech = max(seconds - pad, 0.5)
+        cue_map = cue_times(n, sc["narration"], sc.get("cues"), speech, args.lead)
+        plan.append({"n": n, "sc": sc, "wav": wav, "seconds": seconds, "speech": speech, "cues": cue_map})
 
-        speech = max(seconds - PAD, 0.5)
-        chunks = caption_chunks(scene["narration"])
+    # PHASE 2 (parallel, slow): draw the animations
+    print(f"\nRendering {len(plan)} scene(s), {args.jobs} at a time...")
+
+    def render(p):
+        p["video"] = render_visual(p["n"], p["sc"]["visual"], p["seconds"], args.preview, p["cues"])
+        print(f"   finished scene {p['n']}")
+        return p
+
+    with ThreadPoolExecutor(max_workers=max(1, args.jobs)) as pool:
+        futures = [pool.submit(render, p) for p in plan]
+        for f in futures:
+            try:
+                f.result()
+            except Exception as e:
+                sys.exit(f"A scene failed to render: {e}")
+
+    # PHASE 3 (sequential, quick): join picture and sound, captions, chapters
+    clips, srt, chapters, t = [], [], [], 0.0
+    for p in plan:
+        clip = build / f"clip_{p['n']:02d}{suffix}.mp4"
+        mux(p["video"], p["wav"], p["seconds"], clip)
+        shutil.rmtree(build / f"media_{p['n']:02d}", ignore_errors=True)
+        clips.append(clip)
+        chunks = caption_chunks(p["sc"]["narration"])
         total_words = sum(len(c.split()) for c in chunks)
         cur = t
         for c in chunks:
-            span = speech * len(c.split()) / total_words
+            span = p["speech"] * len(c.split()) / total_words
             srt.append((cur, cur + span, c))
             cur += span
-        if scene.get("chapter"):
-            chapters.append((t, scene["chapter"]))
-        t += seconds
+        if p["sc"].get("chapter"):
+            chapters.append((t, p["sc"]["chapter"]))
+        t += p["seconds"]
 
     listing = build / "clips.txt"
     listing.write_text("".join(f"file '{c.as_posix()}'\n" for c in clips))
     final = ROOT / f"final{suffix}.mp4"
     run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0",
          "-i", listing, "-c", "copy", final])
+
+    if not args.no_normalize:                     # even loudness for YouTube; video is copied, only audio is re-encoded
+        leveled = build / "final_leveled.mp4"
+        run(["ffmpeg", "-y", "-loglevel", "error", "-i", final, "-c:v", "copy",
+             "-af", "loudnorm=I=-16:TP=-1.5:LRA=11", "-c:a", "aac", "-b:a", "192k", "-ar", "44100", leveled])
+        os.replace(leveled, final)
 
     with open(ROOT / "captions.srt", "w", encoding="utf-8") as f:
         for i, (a, b, text) in enumerate(srt, start=1):

@@ -23,8 +23,8 @@ BRAND RULES (keep every video consistent)
   blue = data / API,  orange = user / packet,  green = server,  dark navy background, Poppins font.
   Keep important visuals out of the bottom-right corner (the channel watermark lives there).
 
-FONT NOTE: if Manim prints "couldn't load font Poppins", install Poppins "for all users" on Windows and
-restart PowerShell, or set FONT = None below to use the system font.
+FONT NOTE: FONT = None (default) uses the system font. To use Poppins instead, install it "for all users" on
+Windows, restart PowerShell, and set FONT = "Poppins" below.
 """
 import json
 import os
@@ -42,8 +42,8 @@ COLORS = {"orange": ORANGE, "blue": BLUE, "green": GREEN}
 
 config.background_color = BG
 
-# Install Poppins (free, Google Fonts) for the channel look, or set FONT = None to use the system default.
-FONT = "Poppins"
+# None = use the computer's default font (works everywhere). Set to "Poppins" only if it is installed for all users.
+FONT = None
 
 
 def T(string, **kw):
